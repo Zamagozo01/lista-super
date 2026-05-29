@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lista de Súper Interactiva</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
+
   <style>
     * {
       box-sizing: border-box;
@@ -66,7 +68,6 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.07);
       cursor: pointer;
       font-weight: 700;
-      transition: 0.2s;
       color: #1f3d2b;
     }
 
@@ -96,7 +97,6 @@
       border-radius: 18px;
       overflow: hidden;
       box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
       border: 1px solid #eeeeee;
     }
 
@@ -165,10 +165,6 @@
       line-height: 1;
     }
 
-    .qty-btn:active {
-      transform: scale(0.96);
-    }
-
     .qty-number {
       font-size: 18px;
       font-weight: 900;
@@ -199,6 +195,63 @@
       line-height: 1.4;
     }
 
+    .custom-box {
+      background: #f6f7f3;
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #e2e7dc;
+    }
+
+    .custom-box h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #1f3d2b;
+    }
+
+    .custom-input {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #d9d9d9;
+      border-radius: 12px;
+      outline: none;
+      margin-bottom: 10px;
+      background: white;
+    }
+
+    .custom-row {
+      display: grid;
+      grid-template-columns: 1fr 78px 88px;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .custom-emoji,
+    .custom-qty {
+      padding: 11px;
+      border: 1px solid #d9d9d9;
+      border-radius: 12px;
+      outline: none;
+      background: white;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .custom-emoji {
+      font-size: 18px;
+    }
+
+    .add-custom-btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 11px;
+      cursor: pointer;
+      font-weight: 900;
+      background: #1f3d2b;
+      color: white;
+    }
+
     .cart-list {
       display: grid;
       gap: 10px;
@@ -226,6 +279,17 @@
     .cart-item span {
       color: #666;
       font-size: 13px;
+    }
+
+    .remove-custom {
+      border: none;
+      background: transparent;
+      color: #9b2c2c;
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 13px;
+      margin-top: 4px;
+      text-align: left;
     }
 
     .cart-total {
@@ -291,12 +355,23 @@
         position: static;
       }
     }
+
+    @media (max-width: 420px) {
+      .custom-row {
+        grid-template-columns: 1fr;
+      }
+
+      .search {
+        min-width: 100%;
+      }
+    }
   </style>
 </head>
+
 <body>
   <header>
     <h1>Lista de Súper Interactiva</h1>
-    <p>Selecciona la cantidad de cada ingrediente con los botones de más y menos. Puedes filtrar por categoría, buscar alimentos y copiar tu lista final para llevarla al súper.</p>
+    <p>Selecciona la cantidad de cada ingrediente con los botones de más y menos. También puedes agregar ingredientes extra en la sección Otros, personalizar su emoji y copiar tu lista completa.</p>
   </header>
 
   <main class="container">
@@ -312,6 +387,7 @@
           <button class="filter-btn" data-filter="Extras y saborizantes">Extras</button>
           <button class="filter-btn" data-filter="Bebidas">Bebidas</button>
         </div>
+
         <input class="search" id="searchInput" type="text" placeholder="Buscar alimento..." />
       </div>
 
@@ -322,17 +398,34 @@
     <aside class="cart">
       <h2>Mi lista</h2>
       <small>Resumen de ingredientes seleccionados para comprar.</small>
+
+      <div class="custom-box">
+        <h3>Otros</h3>
+        <input class="custom-input" id="customName" type="text" placeholder="Escribe otro ingrediente..." />
+
+        <div class="custom-row">
+          <input class="custom-input" id="customNote" type="text" placeholder="Nota opcional..." />
+          <input class="custom-emoji" id="customEmoji" type="text" maxlength="2" value="🛒" title="Emoji" />
+          <input class="custom-qty" id="customQty" type="number" min="1" value="1" />
+        </div>
+
+        <button class="add-custom-btn" onclick="addCustomItem()">Agregar a otros</button>
+      </div>
+
       <div class="cart-list" id="cartList"></div>
+
       <div class="cart-total">
         <div class="total-row">
           <span>Ingredientes distintos</span>
           <span id="uniqueCount">0</span>
         </div>
+
         <div class="total-row">
           <span>Cantidad total</span>
           <span id="totalItems">0</span>
         </div>
       </div>
+
       <div class="actions">
         <button class="main-btn" onclick="copyList()">Copiar lista</button>
         <button class="secondary-btn" onclick="clearList()">Limpiar lista</button>
@@ -340,9 +433,7 @@
     </aside>
   </main>
 
-  <footer>
-    Catálogo editable de ingredientes del plan. Puedes ajustar nombres, categorías y emojis directamente en el código.
-  </footer>
+  <footer>Catálogo editable de ingredientes del plan.</footer>
 
   <script>
     const products = [
@@ -357,6 +448,7 @@
       { id: 9, category: "Proteínas", name: "Yogurt light / griego 0% grasa", note: "Sin grasa", emoji: "🥛" },
       { id: 10, category: "Proteínas", name: "Leche light", note: "Baja en grasa", emoji: "🥛" },
       { id: 11, category: "Proteínas", name: "Proteína aislada de soya", note: "Suplemento", emoji: "🧋" },
+
       { id: 12, category: "Verduras y hortalizas", name: "Tomate", note: "Para ensaladas y pico de gallo", emoji: "🍅" },
       { id: 13, category: "Verduras y hortalizas", name: "Cebolla", note: "Blanca o morada", emoji: "🧅" },
       { id: 14, category: "Verduras y hortalizas", name: "Espinaca", note: "Fresca o en bolsa", emoji: "🥬" },
@@ -365,6 +457,7 @@
       { id: 17, category: "Verduras y hortalizas", name: "Verduras para mix", note: "Mezcla al gusto", emoji: "🥦" },
       { id: 18, category: "Verduras y hortalizas", name: "Pico de gallo", note: "Preparado o para preparar", emoji: "🍅" },
       { id: 19, category: "Verduras y hortalizas", name: "Papa cambray", note: "Carbohidrato de verdura", emoji: "🥔" },
+
       { id: 20, category: "Frutas", name: "Fruta picada surtida", note: "Base para snacks", emoji: "🍓" },
       { id: 21, category: "Frutas", name: "Fresa", note: "Para fruta surtida", emoji: "🍓" },
       { id: 22, category: "Frutas", name: "Plátano", note: "Para fruta surtida", emoji: "🍌" },
@@ -372,10 +465,12 @@
       { id: 24, category: "Frutas", name: "Papaya", note: "Para fruta surtida", emoji: "🟠" },
       { id: 25, category: "Frutas", name: "Melón", note: "Para fruta surtida", emoji: "🍈" },
       { id: 26, category: "Frutas", name: "Mango", note: "Opcional", emoji: "🥭" },
+
       { id: 27, category: "Grasas y semillas", name: "Aguacate hass", note: "Grasa saludable", emoji: "🥑" },
       { id: 28, category: "Grasas y semillas", name: "Almendras", note: "Semilla o snack", emoji: "🌰" },
       { id: 29, category: "Grasas y semillas", name: "Mantequilla de cacahuate natural", note: "Sin azúcar añadida", emoji: "🥜" },
       { id: 30, category: "Grasas y semillas", name: "Semilla de chía", note: "Para yogurt o fruta", emoji: "🌱" },
+
       { id: 31, category: "Cereales y carbohidratos", name: "Pan integral", note: "Rebanado", emoji: "🍞" },
       { id: 32, category: "Cereales y carbohidratos", name: "Pan thins integral", note: "Tipo sandwich thin", emoji: "🥪" },
       { id: 33, category: "Cereales y carbohidratos", name: "Tortilla de maíz", note: "Paquete o kilo", emoji: "🌮" },
@@ -384,6 +479,7 @@
       { id: 36, category: "Cereales y carbohidratos", name: "Rice cakes", note: "Tortitas de arroz", emoji: "🍘" },
       { id: 37, category: "Cereales y carbohidratos", name: "Frijoles refritos bajos en grasa", note: "Lata o bolsa", emoji: "🫘" },
       { id: 38, category: "Cereales y carbohidratos", name: "Palomitas fat free", note: "Bajas en grasa", emoji: "🍿" },
+
       { id: 39, category: "Extras y saborizantes", name: "Tajín bajo en sodio", note: "Sazonador", emoji: "🌶️" },
       { id: 40, category: "Extras y saborizantes", name: "Chamoy Sirilo", note: "Saborizante", emoji: "🌶️" },
       { id: 41, category: "Extras y saborizantes", name: "Aderezo Zaaschila", note: "Aderezo", emoji: "🥫" },
@@ -391,6 +487,7 @@
       { id: 43, category: "Extras y saborizantes", name: "Picante / salsas", note: "Al gusto", emoji: "🌶️" },
       { id: 44, category: "Extras y saborizantes", name: "Sazonadores", note: "Sin exceso de sodio", emoji: "🧂" },
       { id: 45, category: "Extras y saborizantes", name: "Stevia o Splenda", note: "Endulzante sin azúcar", emoji: "🍃" },
+
       { id: 46, category: "Bebidas", name: "Agua", note: "Natural", emoji: "💧" },
       { id: 47, category: "Bebidas", name: "Jamaica natural", note: "Sin azúcar o endulzada ligera", emoji: "🌺" },
       { id: 48, category: "Bebidas", name: "Limones para limonada", note: "Para bebida", emoji: "🍋" },
@@ -398,6 +495,9 @@
     ];
 
     const quantities = {};
+    const customItems = [];
+    let customIdCounter = 1000;
+
     const grid = document.getElementById("productGrid");
     const emptyState = document.getElementById("emptyState");
     const searchInput = document.getElementById("searchInput");
@@ -426,14 +526,18 @@
 
       filtered.forEach(product => {
         const quantity = quantities[product.id] || 0;
+
         const card = document.createElement("article");
         card.className = "card";
+
         card.innerHTML = `
           <div class="image-box">${product.emoji}</div>
+
           <div class="content">
             <div class="category">${product.category}</div>
             <div class="title">${product.name}</div>
             <div class="note">${product.note}</div>
+
             <div class="quantity-control">
               <button class="qty-btn" onclick="changeQuantity(${product.id}, -1)">−</button>
               <div class="qty-number" id="qty-${product.id}">${quantity}</div>
@@ -441,6 +545,7 @@
             </div>
           </div>
         `;
+
         grid.appendChild(card);
       });
     }
@@ -461,11 +566,53 @@
       renderCart();
     }
 
+    function addCustomItem() {
+      const nameInput = document.getElementById("customName");
+      const noteInput = document.getElementById("customNote");
+      const emojiInput = document.getElementById("customEmoji");
+      const qtyInput = document.getElementById("customQty");
+
+      const name = nameInput.value.trim();
+      const note = noteInput.value.trim() || "Agregado manualmente";
+      const emoji = emojiInput.value.trim() || "🛒";
+      const quantity = Math.max(1, parseInt(qtyInput.value, 10) || 1);
+
+      if (!name) {
+        alert("Escribe el nombre del ingrediente adicional.");
+        return;
+      }
+
+      customItems.push({
+        id: customIdCounter++,
+        category: "Otros",
+        name,
+        note,
+        quantity,
+        emoji
+      });
+
+      nameInput.value = "";
+      noteInput.value = "";
+      emojiInput.value = "🛒";
+      qtyInput.value = 1;
+
+      renderCart();
+    }
+
+    function removeCustomItem(id) {
+      const index = customItems.findIndex(item => item.id === id);
+
+      if (index !== -1) {
+        customItems.splice(index, 1);
+        renderCart();
+      }
+    }
+
     function renderCart() {
       const selected = products.filter(product => quantities[product.id] > 0);
       cartList.innerHTML = "";
 
-      if (!selected.length) {
+      if (!selected.length && !customItems.length) {
         cartList.innerHTML = "<p style='color:#777;font-size:14px;'>Aún no has agregado ingredientes.</p>";
       }
 
@@ -477,6 +624,7 @@
 
         const item = document.createElement("div");
         item.className = "cart-item";
+
         item.innerHTML = `
           <div>
             <strong>${product.emoji} ${product.name}</strong>
@@ -484,15 +632,35 @@
           </div>
           <strong>${qty}</strong>
         `;
+
         cartList.appendChild(item);
       });
 
-      uniqueCount.textContent = selected.length;
+      customItems.forEach(product => {
+        totalQty += product.quantity;
+
+        const item = document.createElement("div");
+        item.className = "cart-item";
+
+        item.innerHTML = `
+          <div>
+            <strong>${product.emoji} ${product.name}</strong>
+            <span>${product.category} · ${product.note}</span>
+            <button class="remove-custom" onclick="removeCustomItem(${product.id})">Quitar</button>
+          </div>
+          <strong>${product.quantity}</strong>
+        `;
+
+        cartList.appendChild(item);
+      });
+
+      uniqueCount.textContent = selected.length + customItems.length;
       totalItems.textContent = totalQty;
     }
 
     function clearList() {
       Object.keys(quantities).forEach(key => delete quantities[key]);
+      customItems.length = 0;
       renderProducts();
       renderCart();
     }
@@ -500,21 +668,29 @@
     function copyList() {
       const selected = products.filter(product => quantities[product.id] > 0);
 
-      if (!selected.length) {
+      if (!selected.length && !customItems.length) {
         alert("Primero agrega ingredientes a tu lista.");
         return;
       }
 
       const grouped = selected.reduce((groups, product) => {
         if (!groups[product.category]) groups[product.category] = [];
-        groups[product.category].push(`${quantities[product.id]} x ${product.name}`);
+        groups[product.category].push(`${quantities[product.id]} x ${product.emoji} ${product.name}`);
         return groups;
       }, {});
+
+      if (customItems.length) {
+        grouped["Otros"] = customItems.map(item => {
+          const noteText = item.note && item.note !== "Agregado manualmente" ? ` (${item.note})` : "";
+          return `${item.quantity} x ${item.emoji} ${item.name}${noteText}`;
+        });
+      }
 
       let text = "Lista de súper:\n";
 
       Object.keys(grouped).forEach(category => {
         text += `\n${category}:\n`;
+
         grouped[category].forEach(item => {
           text += `- ${item}\n`;
         });
@@ -522,6 +698,8 @@
 
       navigator.clipboard.writeText(text).then(() => {
         alert("Lista copiada al portapapeles.");
+      }).catch(() => {
+        alert("No se pudo copiar automáticamente. Intenta desde otro navegador.");
       });
     }
 
