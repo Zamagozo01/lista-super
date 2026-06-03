@@ -3,719 +3,1168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lista de Súper Interactiva</title>
+  <title>LISTA SUPER ZAMARRIPA CARDENAS</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
-
   <style>
+    :root {
+      --orange: #ff7a1a;
+      --orange-dark: #e96200;
+      --yellow: #fff4df;
+      --cream: #fffaf2;
+      --green: #2fbf71;
+      --red: #ef476f;
+      --blue: #2d9cdb;
+      --purple: #8e5cf7;
+      --text: #25313f;
+      --muted: #697586;
+      --border: #ece2d3;
+      --card: #ffffff;
+      --shadow: 0 12px 30px rgba(37, 49, 63, 0.12);
+      --radius: 22px;
+    }
+
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
-      background: #f6f7f3;
-      color: #202020;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 122, 26, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(47, 191, 113, 0.16), transparent 30%),
+        linear-gradient(135deg, #fffaf2 0%, #fff4df 100%);
+      color: var(--text);
+      min-height: 100vh;
     }
 
     header {
-      background: linear-gradient(135deg, #1f3d2b, #315f42);
-      color: white;
-      padding: 28px 6%;
+      padding: 28px 18px 18px;
+      text-align: center;
     }
 
-    header h1 {
-      font-size: 34px;
-      margin-bottom: 8px;
+    .app-title {
+      margin: 0;
+      color: var(--orange);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 950;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+      text-shadow: 0 4px 0 rgba(255, 122, 26, 0.15);
     }
 
-    header p {
-      color: #e1f0e6;
-      font-size: 15px;
+    .subtitle {
+      margin: 10px auto 0;
+      color: var(--muted);
+      font-weight: 650;
       max-width: 850px;
       line-height: 1.5;
     }
 
-    .container {
-      width: 92%;
-      margin: 24px auto;
+    .layout {
+      width: min(1500px, calc(100% - 28px));
+      margin: 0 auto 40px;
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 24px;
+      grid-template-columns: minmax(0, 1fr) 390px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .main-panel,
+    .side-panel,
+    .otros-panel {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(236, 226, 211, 0.9);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .main-panel {
+      padding: 18px;
     }
 
     .toolbar {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto;
       gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .filters {
+    .search-box {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 15px 16px;
+      font-size: 1rem;
+      background: white;
+      outline: none;
+      color: var(--text);
+      box-shadow: 0 8px 18px rgba(37, 49, 63, 0.06);
+    }
+
+    .search-box:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(255, 122, 26, 0.14);
+    }
+
+    .category-filters {
       display: flex;
-      gap: 10px;
       flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .filter-btn,
+    .action-btn,
+    .small-btn,
+    .copy-btn,
+    .clear-btn,
+    .add-other-btn {
+      border: 0;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
 
     .filter-btn {
-      border: none;
-      padding: 10px 15px;
+      padding: 10px 13px;
       border-radius: 999px;
-      background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      cursor: pointer;
-      font-weight: 700;
-      color: #1f3d2b;
+      color: var(--text);
+      background: #fff;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 18px rgba(37, 49, 63, 0.06);
+      font-size: 0.86rem;
     }
 
     .filter-btn:hover,
+    .action-btn:hover,
+    .small-btn:hover,
+    .copy-btn:hover,
+    .clear-btn:hover,
+    .add-other-btn:hover {
+      transform: translateY(-2px);
+    }
+
     .filter-btn.active {
-      background: #1f3d2b;
+      background: var(--orange);
       color: white;
+      border-color: var(--orange);
+      box-shadow: 0 10px 22px rgba(255, 122, 26, 0.25);
     }
 
-    .search {
-      padding: 11px 14px;
-      border-radius: 999px;
-      border: 1px solid #d9d9d9;
-      min-width: 250px;
-      outline: none;
-      background: white;
-    }
-
-    .grid {
+    .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
     }
 
-    .card {
-      background: white;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      border: 1px solid #eeeeee;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
-    }
-
-    .image-box {
-      height: 132px;
-      background: linear-gradient(135deg, #f4f4f4, #e6ecdf);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 54px;
-    }
-
-    .content {
+    .product-card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
       padding: 16px;
+      min-height: 245px;
+      box-shadow: 0 10px 22px rgba(37, 49, 63, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      overflow: hidden;
     }
 
-    .category {
-      font-size: 11px;
-      font-weight: 900;
-      color: #63806c;
-      text-transform: uppercase;
-      margin-bottom: 7px;
-      letter-spacing: 0.7px;
+    .product-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 7px;
+      background: linear-gradient(90deg, var(--orange), #ffd166, var(--green));
     }
 
-    .title {
-      font-size: 17px;
+    .favorite-btn {
+      position: absolute;
+      top: 13px;
+      right: 13px;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 50%;
+      background: #fff2f6;
+      color: #c2a4ad;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 16px rgba(239, 71, 111, 0.15);
+      transition: transform 0.18s ease, color 0.18s ease, background 0.18s ease;
+    }
+
+    .favorite-btn.active {
+      background: #ffe2ea;
+      color: var(--red);
+      transform: scale(1.06);
+    }
+
+    .product-emoji {
+      font-size: 2.7rem;
+      line-height: 1;
+      margin-top: 10px;
+    }
+
+    .product-name {
+      font-size: 1.05rem;
       font-weight: 900;
-      margin-bottom: 7px;
-      min-height: 40px;
       line-height: 1.2;
+      padding-right: 35px;
+    }
+
+    .category-pill {
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--yellow);
+      color: var(--orange-dark);
+      font-size: 0.77rem;
+      font-weight: 850;
     }
 
     .note {
-      font-size: 13px;
-      color: #777;
-      margin-bottom: 14px;
-      min-height: 18px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.35;
+      min-height: 20px;
+    }
+
+    .price-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 7px;
+      margin-top: auto;
+    }
+
+    .price-input,
+    .budget-input,
+    .other-input {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 11px 12px;
+      width: 100%;
+      outline: none;
+      font-weight: 750;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .price-input:focus,
+    .budget-input:focus,
+    .other-input:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(255, 122, 26, 0.13);
     }
 
     .quantity-control {
-      display: flex;
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
       align-items: center;
-      justify-content: space-between;
-      background: #f2f4ef;
-      border-radius: 14px;
-      padding: 8px;
       gap: 8px;
     }
 
     .qty-btn {
-      width: 36px;
-      height: 36px;
-      border: none;
-      border-radius: 10px;
-      background: #1f3d2b;
+      border: 0;
+      background: var(--orange);
       color: white;
-      font-size: 22px;
-      font-weight: 900;
+      border-radius: 14px;
+      height: 42px;
+      font-size: 1.4rem;
+      font-weight: 950;
       cursor: pointer;
-      line-height: 1;
+      box-shadow: 0 9px 18px rgba(255, 122, 26, 0.22);
     }
 
-    .qty-number {
-      font-size: 18px;
-      font-weight: 900;
-      min-width: 34px;
-      text-align: center;
+    .qty-display {
+      height: 42px;
+      border-radius: 14px;
+      background: #f8f3eb;
+      display: grid;
+      place-items: center;
+      font-weight: 950;
+      font-size: 1.05rem;
     }
 
-    .cart {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.09);
+    .side-panel {
       padding: 18px;
       position: sticky;
-      top: 18px;
-      height: fit-content;
-      border: 1px solid #eeeeee;
+      top: 14px;
+      max-height: calc(100vh - 28px);
+      overflow: auto;
     }
 
-    .cart h2 {
-      font-size: 23px;
-      margin-bottom: 8px;
-    }
-
-    .cart small {
-      color: #777;
-      display: block;
-      margin-bottom: 14px;
-      line-height: 1.4;
-    }
-
-    .custom-box {
-      background: #f6f7f3;
-      border-radius: 16px;
-      padding: 12px;
-      margin-bottom: 16px;
-      border: 1px solid #e2e7dc;
-    }
-
-    .custom-box h3 {
-      font-size: 16px;
-      margin-bottom: 8px;
-      color: #1f3d2b;
-    }
-
-    .custom-input {
-      width: 100%;
-      padding: 11px;
-      border: 1px solid #d9d9d9;
-      border-radius: 12px;
-      outline: none;
-      margin-bottom: 10px;
-      background: white;
-    }
-
-    .custom-row {
-      display: grid;
-      grid-template-columns: 1fr 78px 88px;
+    .side-title {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+      font-weight: 950;
+      display: flex;
+      align-items: center;
       gap: 8px;
-      margin-bottom: 10px;
     }
 
-    .custom-emoji,
-    .custom-qty {
-      padding: 11px;
-      border: 1px solid #d9d9d9;
-      border-radius: 12px;
-      outline: none;
+    .budget-box,
+    .summary-box,
+    .favorites-box {
       background: white;
-      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 15px;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 18px rgba(37, 49, 63, 0.06);
+    }
+
+    .budget-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin: 12px 0;
+    }
+
+    .stat {
+      background: #fff8ed;
+      border-radius: 16px;
+      padding: 11px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.75rem;
       font-weight: 800;
     }
 
-    .custom-emoji {
-      font-size: 18px;
-    }
-
-    .add-custom-btn {
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      padding: 11px;
-      cursor: pointer;
-      font-weight: 900;
-      background: #1f3d2b;
-      color: white;
-    }
-
-    .cart-list {
-      display: grid;
-      gap: 10px;
-      margin-bottom: 16px;
-      max-height: 400px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .cart-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      background: #f6f7f3;
-      padding: 10px;
-      border-radius: 12px;
-      font-size: 14px;
-    }
-
-    .cart-item strong {
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    .cart-item span {
-      color: #666;
-      font-size: 13px;
-    }
-
-    .remove-custom {
-      border: none;
-      background: transparent;
-      color: #9b2c2c;
-      cursor: pointer;
-      font-weight: 900;
-      font-size: 13px;
+    .stat-value {
       margin-top: 4px;
-      text-align: left;
+      font-weight: 950;
+      font-size: 1rem;
     }
 
-    .cart-total {
-      border-top: 1px solid #eeeeee;
-      padding-top: 14px;
-      display: grid;
-      gap: 8px;
-      font-weight: 900;
+    .progress-wrap {
+      height: 14px;
+      background: #f1e8dd;
+      border-radius: 999px;
+      overflow: hidden;
     }
 
-    .total-row {
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--green), #ffd166, var(--orange));
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .progress-bar.over {
+      background: linear-gradient(90deg, #ff8a8a, var(--red));
+    }
+
+    .list-items,
+    .favorites-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .empty-message {
+      color: var(--muted);
+      font-weight: 700;
+      background: #faf6ef;
+      border-radius: 16px;
+      padding: 13px;
+      text-align: center;
+    }
+
+    .list-item,
+    .favorite-item {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 11px;
+      background: #fffdf9;
+    }
+
+    .item-top {
       display: flex;
       justify-content: space-between;
       gap: 10px;
+      align-items: flex-start;
+    }
+
+    .item-name {
+      font-weight: 950;
+      line-height: 1.25;
+    }
+
+    .item-meta {
+      color: var(--muted);
+      font-size: 0.79rem;
+      font-weight: 700;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    .item-total {
+      font-weight: 950;
+      color: var(--green);
+      white-space: nowrap;
+    }
+
+    .favorite-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .small-btn {
+      background: var(--green);
+      color: white;
+      border-radius: 13px;
+      padding: 9px 11px;
+      box-shadow: 0 8px 16px rgba(47, 191, 113, 0.2);
     }
 
     .actions {
       display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 14px;
+      margin-top: 12px;
     }
 
-    .main-btn,
-    .secondary-btn {
-      border: none;
-      border-radius: 12px;
-      padding: 12px;
-      cursor: pointer;
-      font-weight: 900;
-    }
-
-    .main-btn {
-      background: #1f3d2b;
+    .copy-btn {
+      background: var(--blue);
       color: white;
+      border-radius: 16px;
+      padding: 13px;
+      box-shadow: 0 8px 16px rgba(45, 156, 219, 0.22);
     }
 
-    .secondary-btn {
-      background: #edf0e9;
-      color: #1f3d2b;
+    .clear-btn {
+      background: var(--red);
+      color: white;
+      border-radius: 16px;
+      padding: 13px;
+      box-shadow: 0 8px 16px rgba(239, 71, 111, 0.22);
     }
 
-    .empty {
-      display: none;
-      text-align: center;
-      padding: 35px;
-      color: #777;
-      font-weight: 700;
+    .otros-panel {
+      width: min(1500px, calc(100% - 28px));
+      margin: 0 auto 42px;
+      padding: 18px;
     }
 
-    footer {
-      text-align: center;
-      padding: 28px;
-      color: #777;
-      font-size: 13px;
+    .otros-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1.2fr 0.7fr 0.7fr 0.9fr auto;
+      gap: 10px;
+      align-items: end;
     }
 
-    @media (max-width: 940px) {
-      .container {
+    .input-group label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 850;
+      margin-bottom: 6px;
+    }
+
+    .add-other-btn {
+      background: var(--purple);
+      color: white;
+      border-radius: 14px;
+      padding: 12px 15px;
+      min-height: 44px;
+      box-shadow: 0 8px 16px rgba(142, 92, 247, 0.22);
+      white-space: nowrap;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(20px);
+      background: #25313f;
+      color: white;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-weight: 850;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 50;
+      box-shadow: var(--shadow);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 1160px) {
+      .layout {
         grid-template-columns: 1fr;
       }
 
-      .cart {
+      .side-panel {
         position: static;
+        max-height: none;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 420px) {
-      .custom-row {
+    @media (max-width: 760px) {
+      header {
+        padding-top: 22px;
+      }
+
+      .layout,
+      .otros-panel {
+        width: min(100% - 18px, 1500px);
+      }
+
+      .main-panel,
+      .side-panel,
+      .otros-panel {
+        border-radius: 18px;
+        padding: 13px;
+      }
+
+      .toolbar {
         grid-template-columns: 1fr;
       }
 
-      .search {
-        min-width: 100%;
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-card {
+        min-height: 230px;
+      }
+
+      .otros-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .budget-stats,
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .category-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .filter-btn {
+        white-space: nowrap;
       }
     }
   </style>
 </head>
-
 <body>
   <header>
-    <h1>Lista de Súper Interactiva</h1>
-    <p>Selecciona la cantidad de cada ingrediente con los botones de más y menos. También puedes agregar ingredientes extra en la sección Otros, personalizar su emoji y copiar tu lista completa.</p>
+    <h1 class="app-title">LISTA SUPER ZAMARRIPA CARDENAS</h1>
+    <p class="subtitle">Catálogo interactivo para organizar productos, cantidades, favoritos, precios y presupuesto.</p>
   </header>
 
-  <main class="container">
-    <section>
+  <section class="layout">
+    <main class="main-panel">
       <div class="toolbar">
-        <div class="filters">
-          <button class="filter-btn active" data-filter="Todos">Todos</button>
-          <button class="filter-btn" data-filter="Proteínas">Proteínas</button>
-          <button class="filter-btn" data-filter="Verduras y hortalizas">Verduras</button>
-          <button class="filter-btn" data-filter="Frutas">Frutas</button>
-          <button class="filter-btn" data-filter="Grasas y semillas">Grasas</button>
-          <button class="filter-btn" data-filter="Cereales y carbohidratos">Carbohidratos</button>
-          <button class="filter-btn" data-filter="Extras y saborizantes">Extras</button>
-          <button class="filter-btn" data-filter="Bebidas">Bebidas</button>
-        </div>
-
-        <input class="search" id="searchInput" type="text" placeholder="Buscar alimento..." />
+        <input id="searchInput" class="search-box" type="search" placeholder="Buscar producto..." />
       </div>
 
-      <section class="grid" id="productGrid"></section>
-      <div class="empty" id="emptyState">No se encontraron alimentos.</div>
-    </section>
+      <div id="categoryFilters" class="category-filters"></div>
+      <div id="productsGrid" class="products-grid"></div>
+    </main>
 
-    <aside class="cart">
-      <h2>Mi lista</h2>
-      <small>Resumen de ingredientes seleccionados para comprar.</small>
+    <aside class="side-panel">
+      <section class="budget-box">
+        <h2 class="side-title">💰 Presupuesto</h2>
+        <input id="budgetInput" class="budget-input" type="number" min="0" step="0.01" placeholder="Escribe tu presupuesto total" />
 
-      <div class="custom-box">
-        <h3>Otros</h3>
-        <input class="custom-input" id="customName" type="text" placeholder="Escribe otro ingrediente..." />
-
-        <div class="custom-row">
-          <input class="custom-input" id="customNote" type="text" placeholder="Nota opcional..." />
-          <input class="custom-emoji" id="customEmoji" type="text" maxlength="2" value="🛒" title="Emoji" />
-          <input class="custom-qty" id="customQty" type="number" min="1" value="1" />
+        <div class="budget-stats">
+          <div class="stat">
+            <div class="stat-label">Total estimado</div>
+            <div id="totalEstimated" class="stat-value">$0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Restante o excedente</div>
+            <div id="remainingBudget" class="stat-value">$0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Ingredientes distintos</div>
+            <div id="distinctItems" class="stat-value">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Cantidad total</div>
+            <div id="totalQuantity" class="stat-value">0</div>
+          </div>
         </div>
 
-        <button class="add-custom-btn" onclick="addCustomItem()">Agregar a otros</button>
-      </div>
-
-      <div class="cart-list" id="cartList"></div>
-
-      <div class="cart-total">
-        <div class="total-row">
-          <span>Ingredientes distintos</span>
-          <span id="uniqueCount">0</span>
+        <div class="progress-wrap">
+          <div id="budgetProgress" class="progress-bar"></div>
         </div>
+      </section>
 
-        <div class="total-row">
-          <span>Cantidad total</span>
-          <span id="totalItems">0</span>
+      <section class="favorites-box">
+        <h2 class="side-title">❤️ Favoritos</h2>
+        <div id="favoritesList" class="favorites-list"></div>
+      </section>
+
+      <section class="summary-box">
+        <h2 class="side-title">🛒 Mi lista</h2>
+        <div id="listItems" class="list-items"></div>
+
+        <div class="actions">
+          <button id="copyListBtn" class="copy-btn">Copiar lista</button>
+          <button id="clearListBtn" class="clear-btn">Limpiar lista</button>
         </div>
-      </div>
-
-      <div class="actions">
-        <button class="main-btn" onclick="copyList()">Copiar lista</button>
-        <button class="secondary-btn" onclick="clearList()">Limpiar lista</button>
-      </div>
+      </section>
     </aside>
-  </main>
+  </section>
 
-  <footer>Catálogo editable de ingredientes del plan.</footer>
+  <section class="otros-panel">
+    <h2 class="side-title">🛍️ Otros</h2>
+    <div class="otros-grid">
+      <div class="input-group">
+        <label for="otherName">Nombre del producto</label>
+        <input id="otherName" class="other-input" type="text" placeholder="Ej. Salsa especial" />
+      </div>
+
+      <div class="input-group">
+        <label for="otherNote">Nota opcional</label>
+        <input id="otherNote" class="other-input" type="text" placeholder="Ej. Marca, tamaño, presentación" />
+      </div>
+
+      <div class="input-group">
+        <label for="otherEmoji">Emoji</label>
+        <input id="otherEmoji" class="other-input" type="text" maxlength="4" placeholder="🛒" />
+      </div>
+
+      <div class="input-group">
+        <label for="otherQuantity">Cantidad</label>
+        <input id="otherQuantity" class="other-input" type="number" min="1" step="1" value="1" />
+      </div>
+
+      <div class="input-group">
+        <label for="otherPrice">Precio unitario</label>
+        <input id="otherPrice" class="other-input" type="number" min="0" step="0.01" placeholder="$0" />
+      </div>
+
+      <button id="addOtherBtn" class="add-other-btn">Agregar a otros</button>
+    </div>
+  </section>
+
+  <div id="toast" class="toast"></div>
 
   <script>
     const products = [
-      { id: 1, category: "Proteínas", name: "Huevo", note: "Entero", emoji: "🥚" },
-      { id: 2, category: "Proteínas", name: "Claras de huevo", note: "Cartón o botella", emoji: "🥚" },
-      { id: 3, category: "Proteínas", name: "Arrachera de res", note: "Proteína animal", emoji: "🥩" },
-      { id: 4, category: "Proteínas", name: "Pollo deshebrado", note: "Pechuga cocida o para preparar", emoji: "🍗" },
-      { id: 5, category: "Proteínas", name: "Carne molida de pollo", note: "Magra", emoji: "🍗" },
-      { id: 6, category: "Proteínas", name: "Jamón de pavo", note: "Bajo en grasa", emoji: "🍖" },
-      { id: 7, category: "Proteínas", name: "Queso panela light", note: "Lácteo alto en proteína", emoji: "🧀" },
-      { id: 8, category: "Proteínas", name: "Queso Oaxaca", note: "Para porciones moderadas", emoji: "🧀" },
-      { id: 9, category: "Proteínas", name: "Yogurt light / griego 0% grasa", note: "Sin grasa", emoji: "🥛" },
-      { id: 10, category: "Proteínas", name: "Leche light", note: "Baja en grasa", emoji: "🥛" },
-      { id: 11, category: "Proteínas", name: "Proteína aislada de soya", note: "Suplemento", emoji: "🧋" },
+      { id: "proteinas-001", emoji: "🥚", name: "Huevo", category: "Proteínas", note: "" },
+      { id: "proteinas-002", emoji: "🥚", name: "Claras de huevo", category: "Proteínas", note: "" },
+      { id: "proteinas-003", emoji: "🥩", name: "Arrachera de res", category: "Proteínas", note: "" },
+      { id: "proteinas-004", emoji: "🍗", name: "Pollo deshebrado", category: "Proteínas", note: "" },
+      { id: "proteinas-005", emoji: "🍗", name: "Carne molida de pollo", category: "Proteínas", note: "" },
+      { id: "proteinas-006", emoji: "🍖", name: "Jamón de pavo", category: "Proteínas", note: "" },
+      { id: "proteinas-007", emoji: "🧀", name: "Queso panela light", category: "Proteínas", note: "" },
+      { id: "proteinas-008", emoji: "🧀", name: "Queso Oaxaca", category: "Proteínas", note: "" },
+      { id: "proteinas-009", emoji: "🥛", name: "Yogurt light / griego 0% grasa", category: "Proteínas", note: "" },
+      { id: "proteinas-010", emoji: "🥛", name: "Leche light", category: "Proteínas", note: "" },
+      { id: "proteinas-011", emoji: "🧋", name: "Proteína aislada de soya", category: "Proteínas", note: "" },
+      { id: "proteinas-012", emoji: "🐟", name: "Atún en agua", category: "Proteínas", note: "" },
+      { id: "proteinas-013", emoji: "🐟", name: "Salmón", category: "Proteínas", note: "" },
+      { id: "proteinas-014", emoji: "🐟", name: "Tilapia o pescado blanco", category: "Proteínas", note: "" },
+      { id: "proteinas-015", emoji: "🦐", name: "Camarón", category: "Proteínas", note: "" },
+      { id: "proteinas-016", emoji: "🦃", name: "Pechuga de pavo", category: "Proteínas", note: "" },
+      { id: "proteinas-017", emoji: "🥩", name: "Carne molida de res magra", category: "Proteínas", note: "" },
+      { id: "proteinas-018", emoji: "🍗", name: "Pechuga de pollo", category: "Proteínas", note: "" },
+      { id: "proteinas-019", emoji: "🧀", name: "Requesón o cottage", category: "Proteínas", note: "" },
+      { id: "proteinas-020", emoji: "🫘", name: "Garbanzos", category: "Proteínas", note: "" },
+      { id: "proteinas-021", emoji: "🫘", name: "Lentejas", category: "Proteínas", note: "" },
 
-      { id: 12, category: "Verduras y hortalizas", name: "Tomate", note: "Para ensaladas y pico de gallo", emoji: "🍅" },
-      { id: 13, category: "Verduras y hortalizas", name: "Cebolla", note: "Blanca o morada", emoji: "🧅" },
-      { id: 14, category: "Verduras y hortalizas", name: "Espinaca", note: "Fresca o en bolsa", emoji: "🥬" },
-      { id: 15, category: "Verduras y hortalizas", name: "Lechuga", note: "Romana o italiana", emoji: "🥬" },
-      { id: 16, category: "Verduras y hortalizas", name: "Pepino", note: "Fresco", emoji: "🥒" },
-      { id: 17, category: "Verduras y hortalizas", name: "Verduras para mix", note: "Mezcla al gusto", emoji: "🥦" },
-      { id: 18, category: "Verduras y hortalizas", name: "Pico de gallo", note: "Preparado o para preparar", emoji: "🍅" },
-      { id: 19, category: "Verduras y hortalizas", name: "Papa cambray", note: "Carbohidrato de verdura", emoji: "🥔" },
+      { id: "verduras-001", emoji: "🍅", name: "Tomate", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-002", emoji: "🧅", name: "Cebolla", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-003", emoji: "🥬", name: "Espinaca", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-004", emoji: "🥬", name: "Lechuga", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-005", emoji: "🥒", name: "Pepino", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-006", emoji: "🥦", name: "Verduras para mix", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-007", emoji: "🍅", name: "Pico de gallo", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-008", emoji: "🥔", name: "Papa cambray", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-009", emoji: "🥦", name: "Brócoli", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-010", emoji: "🥕", name: "Zanahoria", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-011", emoji: "🫑", name: "Pimiento morrón", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-012", emoji: "🥒", name: "Calabacita", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-013", emoji: "🍄", name: "Champiñones", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-014", emoji: "🥬", name: "Acelga", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-015", emoji: "🥬", name: "Col morada", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-016", emoji: "🌽", name: "Elote amarillo", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-017", emoji: "🧄", name: "Ajo", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-018", emoji: "🥗", name: "Apio", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-019", emoji: "🥗", name: "Cilantro", category: "Verduras y hortalizas", note: "" },
+      { id: "verduras-020", emoji: "🥗", name: "Perejil", category: "Verduras y hortalizas", note: "" },
 
-      { id: 20, category: "Frutas", name: "Fruta picada surtida", note: "Base para snacks", emoji: "🍓" },
-      { id: 21, category: "Frutas", name: "Fresa", note: "Para fruta surtida", emoji: "🍓" },
-      { id: 22, category: "Frutas", name: "Plátano", note: "Para fruta surtida", emoji: "🍌" },
-      { id: 23, category: "Frutas", name: "Manzana", note: "Para fruta surtida", emoji: "🍎" },
-      { id: 24, category: "Frutas", name: "Papaya", note: "Para fruta surtida", emoji: "🟠" },
-      { id: 25, category: "Frutas", name: "Melón", note: "Para fruta surtida", emoji: "🍈" },
-      { id: 26, category: "Frutas", name: "Mango", note: "Opcional", emoji: "🥭" },
+      { id: "frutas-001", emoji: "🍓", name: "Fruta picada surtida", category: "Frutas", note: "" },
+      { id: "frutas-002", emoji: "🍓", name: "Fresa", category: "Frutas", note: "" },
+      { id: "frutas-003", emoji: "🍌", name: "Plátano", category: "Frutas", note: "" },
+      { id: "frutas-004", emoji: "🍎", name: "Manzana", category: "Frutas", note: "" },
+      { id: "frutas-005", emoji: "🟠", name: "Papaya", category: "Frutas", note: "" },
+      { id: "frutas-006", emoji: "🍈", name: "Melón", category: "Frutas", note: "" },
+      { id: "frutas-007", emoji: "🥭", name: "Mango opcional", category: "Frutas", note: "Opcional" },
+      { id: "frutas-008", emoji: "🍍", name: "Piña", category: "Frutas", note: "" },
+      { id: "frutas-009", emoji: "🍊", name: "Naranja", category: "Frutas", note: "" },
+      { id: "frutas-010", emoji: "🍇", name: "Uvas", category: "Frutas", note: "" },
+      { id: "frutas-011", emoji: "🫐", name: "Blueberries", category: "Frutas", note: "" },
+      { id: "frutas-012", emoji: "🥝", name: "Kiwi", category: "Frutas", note: "" },
+      { id: "frutas-013", emoji: "🍐", name: "Pera", category: "Frutas", note: "" },
+      { id: "frutas-014", emoji: "🍉", name: "Sandía", category: "Frutas", note: "" },
+      { id: "frutas-015", emoji: "🍑", name: "Durazno", category: "Frutas", note: "" },
+      { id: "frutas-016", emoji: "🍊", name: "Mandarina", category: "Frutas", note: "" },
 
-      { id: 27, category: "Grasas y semillas", name: "Aguacate hass", note: "Grasa saludable", emoji: "🥑" },
-      { id: 28, category: "Grasas y semillas", name: "Almendras", note: "Semilla o snack", emoji: "🌰" },
-      { id: 29, category: "Grasas y semillas", name: "Mantequilla de cacahuate natural", note: "Sin azúcar añadida", emoji: "🥜" },
-      { id: 30, category: "Grasas y semillas", name: "Semilla de chía", note: "Para yogurt o fruta", emoji: "🌱" },
+      { id: "grasas-001", emoji: "🥑", name: "Aguacate hass", category: "Grasas y semillas", note: "" },
+      { id: "grasas-002", emoji: "🌰", name: "Almendras", category: "Grasas y semillas", note: "" },
+      { id: "grasas-003", emoji: "🥜", name: "Mantequilla de cacahuate natural", category: "Grasas y semillas", note: "" },
+      { id: "grasas-004", emoji: "🌱", name: "Semilla de chía", category: "Grasas y semillas", note: "" },
+      { id: "grasas-005", emoji: "🥜", name: "Nueces", category: "Grasas y semillas", note: "" },
+      { id: "grasas-006", emoji: "🥜", name: "Cacahuates naturales", category: "Grasas y semillas", note: "" },
+      { id: "grasas-007", emoji: "🌱", name: "Linaza", category: "Grasas y semillas", note: "" },
+      { id: "grasas-008", emoji: "🌱", name: "Semillas de girasol", category: "Grasas y semillas", note: "" },
+      { id: "grasas-009", emoji: "🌱", name: "Semillas de calabaza", category: "Grasas y semillas", note: "" },
+      { id: "grasas-010", emoji: "🫒", name: "Aceite de oliva", category: "Grasas y semillas", note: "" },
+      { id: "grasas-011", emoji: "🥥", name: "Aceite de coco", category: "Grasas y semillas", note: "" },
+      { id: "grasas-012", emoji: "🥑", name: "Guacamole natural", category: "Grasas y semillas", note: "" },
 
-      { id: 31, category: "Cereales y carbohidratos", name: "Pan integral", note: "Rebanado", emoji: "🍞" },
-      { id: 32, category: "Cereales y carbohidratos", name: "Pan thins integral", note: "Tipo sandwich thin", emoji: "🥪" },
-      { id: 33, category: "Cereales y carbohidratos", name: "Tortilla de maíz", note: "Paquete o kilo", emoji: "🌮" },
-      { id: 34, category: "Cereales y carbohidratos", name: "Tostadas horneadas", note: "No fritas", emoji: "🫓" },
-      { id: 35, category: "Cereales y carbohidratos", name: "Salmas", note: "Tostadas de maíz", emoji: "🫓" },
-      { id: 36, category: "Cereales y carbohidratos", name: "Rice cakes", note: "Tortitas de arroz", emoji: "🍘" },
-      { id: 37, category: "Cereales y carbohidratos", name: "Frijoles refritos bajos en grasa", note: "Lata o bolsa", emoji: "🫘" },
-      { id: 38, category: "Cereales y carbohidratos", name: "Palomitas fat free", note: "Bajas en grasa", emoji: "🍿" },
+      { id: "cereales-001", emoji: "🍞", name: "Pan integral", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-002", emoji: "🥪", name: "Pan thins integral", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-003", emoji: "🌮", name: "Tortilla de maíz", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-004", emoji: "🫓", name: "Tostadas horneadas", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-005", emoji: "🫓", name: "Salmas", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-006", emoji: "🍘", name: "Rice cakes", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-007", emoji: "🫘", name: "Frijoles refritos bajos en grasa", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-008", emoji: "🍿", name: "Palomitas fat free", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-009", emoji: "🍚", name: "Arroz blanco", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-010", emoji: "🍚", name: "Arroz integral", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-011", emoji: "🥣", name: "Avena", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-012", emoji: "🍠", name: "Camote", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-013", emoji: "🥔", name: "Papa", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-014", emoji: "🍝", name: "Pasta integral", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-015", emoji: "🌽", name: "Elote", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-016", emoji: "🫘", name: "Frijoles de la olla", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-017", emoji: "🫘", name: "Lentejas", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-018", emoji: "🥣", name: "Granola baja en azúcar", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-019", emoji: "🌯", name: "Tortilla de harina integral", category: "Cereales y carbohidratos", note: "" },
+      { id: "cereales-020", emoji: "🥨", name: "Pretzels horneados", category: "Cereales y carbohidratos", note: "" },
 
-      { id: 39, category: "Extras y saborizantes", name: "Tajín bajo en sodio", note: "Sazonador", emoji: "🌶️" },
-      { id: 40, category: "Extras y saborizantes", name: "Chamoy Sirilo", note: "Saborizante", emoji: "🌶️" },
-      { id: 41, category: "Extras y saborizantes", name: "Aderezo Zaaschila", note: "Aderezo", emoji: "🥫" },
-      { id: 42, category: "Extras y saborizantes", name: "Limón", note: "Para comida", emoji: "🍋" },
-      { id: 43, category: "Extras y saborizantes", name: "Picante / salsas", note: "Al gusto", emoji: "🌶️" },
-      { id: 44, category: "Extras y saborizantes", name: "Sazonadores", note: "Sin exceso de sodio", emoji: "🧂" },
-      { id: 45, category: "Extras y saborizantes", name: "Stevia o Splenda", note: "Endulzante sin azúcar", emoji: "🍃" },
+      { id: "extras-001", emoji: "🌶️", name: "Tajín bajo en sodio", category: "Extras y saborizantes", note: "" },
+      { id: "extras-002", emoji: "🌶️", name: "Chamoy Sirilo", category: "Extras y saborizantes", note: "" },
+      { id: "extras-003", emoji: "🥫", name: "Aderezo Zaaschila", category: "Extras y saborizantes", note: "" },
+      { id: "extras-004", emoji: "🍋", name: "Limón", category: "Extras y saborizantes", note: "" },
+      { id: "extras-005", emoji: "🌶️", name: "Picante / salsas", category: "Extras y saborizantes", note: "" },
+      { id: "extras-006", emoji: "🧂", name: "Sazonadores", category: "Extras y saborizantes", note: "" },
+      { id: "extras-007", emoji: "🍃", name: "Stevia o Splenda", category: "Extras y saborizantes", note: "" },
+      { id: "extras-008", emoji: "🧂", name: "Sal baja en sodio", category: "Extras y saborizantes", note: "" },
+      { id: "extras-009", emoji: "⚫", name: "Pimienta", category: "Extras y saborizantes", note: "" },
+      { id: "extras-010", emoji: "🧄", name: "Ajo en polvo", category: "Extras y saborizantes", note: "" },
+      { id: "extras-011", emoji: "🧅", name: "Cebolla en polvo", category: "Extras y saborizantes", note: "" },
+      { id: "extras-012", emoji: "🌿", name: "Orégano", category: "Extras y saborizantes", note: "" },
+      { id: "extras-013", emoji: "🌿", name: "Albahaca", category: "Extras y saborizantes", note: "" },
+      { id: "extras-014", emoji: "🌿", name: "Romero", category: "Extras y saborizantes", note: "" },
+      { id: "extras-015", emoji: "🌶️", name: "Paprika", category: "Extras y saborizantes", note: "" },
+      { id: "extras-016", emoji: "🌶️", name: "Chile en polvo", category: "Extras y saborizantes", note: "" },
+      { id: "extras-017", emoji: "🍯", name: "Miel de abeja", category: "Extras y saborizantes", note: "" },
+      { id: "extras-018", emoji: "🥫", name: "Mostaza", category: "Extras y saborizantes", note: "" },
+      { id: "extras-019", emoji: "🥫", name: "Salsa de soya baja en sodio", category: "Extras y saborizantes", note: "" },
+      { id: "extras-020", emoji: "🍎", name: "Vinagre de manzana", category: "Extras y saborizantes", note: "" },
+      { id: "extras-021", emoji: "🫒", name: "Vinagre balsámico", category: "Extras y saborizantes", note: "" },
 
-      { id: 46, category: "Bebidas", name: "Agua", note: "Natural", emoji: "💧" },
-      { id: 47, category: "Bebidas", name: "Jamaica natural", note: "Sin azúcar o endulzada ligera", emoji: "🌺" },
-      { id: 48, category: "Bebidas", name: "Limones para limonada", note: "Para bebida", emoji: "🍋" },
-      { id: 49, category: "Bebidas", name: "Bebidas light / Be Light", note: "Bajas en calorías", emoji: "🥤" }
+      { id: "bebidas-001", emoji: "💧", name: "Agua", category: "Bebidas", note: "" },
+      { id: "bebidas-002", emoji: "🌺", name: "Jamaica natural", category: "Bebidas", note: "" },
+      { id: "bebidas-003", emoji: "🍋", name: "Limones para limonada", category: "Bebidas", note: "" },
+      { id: "bebidas-004", emoji: "🥤", name: "Bebidas light / Be Light", category: "Bebidas", note: "" },
+      { id: "bebidas-005", emoji: "🫖", name: "Té verde", category: "Bebidas", note: "" },
+      { id: "bebidas-006", emoji: "🫖", name: "Té de manzanilla", category: "Bebidas", note: "" },
+      { id: "bebidas-007", emoji: "🫖", name: "Té de jengibre", category: "Bebidas", note: "" },
+      { id: "bebidas-008", emoji: "☕", name: "Café", category: "Bebidas", note: "" },
+      { id: "bebidas-009", emoji: "🥛", name: "Leche deslactosada light", category: "Bebidas", note: "" },
+      { id: "bebidas-010", emoji: "🥛", name: "Leche de almendra sin azúcar", category: "Bebidas", note: "" },
+      { id: "bebidas-011", emoji: "🥤", name: "Agua mineral", category: "Bebidas", note: "" },
+      { id: "bebidas-012", emoji: "🧊", name: "Sueros sin azúcar", category: "Bebidas", note: "" },
+      { id: "bebidas-013", emoji: "🍋", name: "Agua con limón", category: "Bebidas", note: "" },
+      { id: "bebidas-014", emoji: "🥒", name: "Agua de pepino con limón", category: "Bebidas", note: "" },
+
+      { id: "basicos-001", emoji: "🧻", name: "Servilletas", category: "Básicos de despensa", note: "" },
+      { id: "basicos-002", emoji: "🧽", name: "Esponjas", category: "Básicos de despensa", note: "" },
+      { id: "basicos-003", emoji: "🧴", name: "Jabón para trastes", category: "Básicos de despensa", note: "" },
+      { id: "basicos-004", emoji: "🧼", name: "Jabón de manos", category: "Básicos de despensa", note: "" },
+      { id: "basicos-005", emoji: "🧻", name: "Papel de baño", category: "Básicos de despensa", note: "" },
+      { id: "basicos-006", emoji: "🧺", name: "Bolsas para basura", category: "Básicos de despensa", note: "" },
+      { id: "basicos-007", emoji: "🧴", name: "Desinfectante", category: "Básicos de despensa", note: "" },
+      { id: "basicos-008", emoji: "🧂", name: "Papel aluminio", category: "Básicos de despensa", note: "" },
+      { id: "basicos-009", emoji: "📦", name: "Bolsas ziploc", category: "Básicos de despensa", note: "" },
+      { id: "basicos-010", emoji: "🍱", name: "Contenedores para comida", category: "Básicos de despensa", note: "" }
     ];
 
-    const quantities = {};
-    const customItems = [];
-    let customIdCounter = 1000;
+    let selectedCategory = "Todas";
+    let quantities = {};
+    let prices = {};
+    let favorites = {};
+    let otherCounter = 1;
 
-    const grid = document.getElementById("productGrid");
-    const emptyState = document.getElementById("emptyState");
+    const productsGrid = document.getElementById("productsGrid");
+    const categoryFilters = document.getElementById("categoryFilters");
     const searchInput = document.getElementById("searchInput");
-    const buttons = document.querySelectorAll(".filter-btn");
-    const cartList = document.getElementById("cartList");
-    const uniqueCount = document.getElementById("uniqueCount");
-    const totalItems = document.getElementById("totalItems");
+    const budgetInput = document.getElementById("budgetInput");
+    const totalEstimated = document.getElementById("totalEstimated");
+    const remainingBudget = document.getElementById("remainingBudget");
+    const distinctItems = document.getElementById("distinctItems");
+    const totalQuantity = document.getElementById("totalQuantity");
+    const budgetProgress = document.getElementById("budgetProgress");
+    const listItems = document.getElementById("listItems");
+    const favoritesList = document.getElementById("favoritesList");
+    const copyListBtn = document.getElementById("copyListBtn");
+    const clearListBtn = document.getElementById("clearListBtn");
+    const addOtherBtn = document.getElementById("addOtherBtn");
+    const otherName = document.getElementById("otherName");
+    const otherNote = document.getElementById("otherNote");
+    const otherEmoji = document.getElementById("otherEmoji");
+    const otherQuantity = document.getElementById("otherQuantity");
+    const otherPrice = document.getElementById("otherPrice");
+    const toast = document.getElementById("toast");
 
-    let activeFilter = "Todos";
+    function money(value) {
+      const numberValue = Number(value) || 0;
+      return "$" + numberValue.toLocaleString("es-MX", {
+        minimumFractionDigits: numberValue % 1 === 0 ? 0 : 2,
+        maximumFractionDigits: 2
+      });
+    }
 
-    function renderProducts() {
-      const query = searchInput.value.toLowerCase().trim();
-      grid.innerHTML = "";
+    function normalizeText(text) {
+      return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
 
-      const filtered = products.filter(product => {
-        const matchesCategory = activeFilter === "Todos" || product.category === activeFilter;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    function getCategories() {
+      return ["Todas", ...new Set(products.map(product => product.category))];
+    }
+
+    function renderFilters() {
+      categoryFilters.innerHTML = "";
+      getCategories().forEach(category => {
+        const button = document.createElement("button");
+        button.className = "filter-btn" + (selectedCategory === category ? " active" : "");
+        button.textContent = category;
+        button.addEventListener("click", () => {
+          selectedCategory = category;
+          renderFilters();
+          renderProducts();
+        });
+        categoryFilters.appendChild(button);
+      });
+    }
+
+    function getFilteredProducts() {
+      const query = normalizeText(searchInput.value.trim());
+
+      return products.filter(product => {
+        const matchesCategory = selectedCategory === "Todas" || product.category === selectedCategory;
         const matchesSearch =
-          product.name.toLowerCase().includes(query) ||
-          product.category.toLowerCase().includes(query) ||
-          product.note.toLowerCase().includes(query);
+          normalizeText(product.name).includes(query) ||
+          normalizeText(product.category).includes(query) ||
+          normalizeText(product.note || "").includes(query);
 
         return matchesCategory && matchesSearch;
       });
+    }
 
-      emptyState.style.display = filtered.length ? "none" : "block";
+    function renderProducts() {
+      const filteredProducts = getFilteredProducts();
+      productsGrid.innerHTML = "";
 
-      filtered.forEach(product => {
+      if (filteredProducts.length === 0) {
+        productsGrid.innerHTML = `<div class="empty-message">No se encontraron productos.</div>`;
+        return;
+      }
+
+      filteredProducts.forEach(product => {
         const quantity = quantities[product.id] || 0;
+        const price = prices[product.id] ?? "";
 
         const card = document.createElement("article");
-        card.className = "card";
-
+        card.className = "product-card";
         card.innerHTML = `
-          <div class="image-box">${product.emoji}</div>
-
-          <div class="content">
-            <div class="category">${product.category}</div>
-            <div class="title">${product.name}</div>
-            <div class="note">${product.note}</div>
-
+          <button class="favorite-btn ${favorites[product.id] ? "active" : ""}" aria-label="Favorito">♥</button>
+          <div class="product-emoji">${product.emoji}</div>
+          <div class="product-name">${product.name}</div>
+          <div class="category-pill">${product.category}</div>
+          <div class="note">${product.note || "Agrega cantidad y precio si aplica."}</div>
+          <div class="price-row">
+            <input class="price-input" type="number" min="0" step="0.01" placeholder="Precio unitario manual" value="${price}">
             <div class="quantity-control">
-              <button class="qty-btn" onclick="changeQuantity(${product.id}, -1)">−</button>
-              <div class="qty-number" id="qty-${product.id}">${quantity}</div>
-              <button class="qty-btn" onclick="changeQuantity(${product.id}, 1)">+</button>
+              <button class="qty-btn minus-btn">−</button>
+              <div class="qty-display">${quantity}</div>
+              <button class="qty-btn plus-btn">+</button>
             </div>
           </div>
         `;
 
-        grid.appendChild(card);
+        card.querySelector(".favorite-btn").addEventListener("click", () => {
+          favorites[product.id] = !favorites[product.id];
+          renderProducts();
+          updateSummary();
+        });
+
+        card.querySelector(".price-input").addEventListener("input", event => {
+          prices[product.id] = Number(event.target.value) || 0;
+          updateSummary();
+        });
+
+        card.querySelector(".minus-btn").addEventListener("click", () => {
+          quantities[product.id] = Math.max(0, (quantities[product.id] || 0) - 1);
+          renderProducts();
+          updateSummary();
+        });
+
+        card.querySelector(".plus-btn").addEventListener("click", () => {
+          quantities[product.id] = (quantities[product.id] || 0) + 1;
+          renderProducts();
+          updateSummary();
+        });
+
+        productsGrid.appendChild(card);
       });
     }
 
-    function changeQuantity(id, amount) {
-      const current = quantities[id] || 0;
-      const next = Math.max(0, current + amount);
-
-      if (next === 0) {
-        delete quantities[id];
-      } else {
-        quantities[id] = next;
-      }
-
-      const qtyElement = document.getElementById(`qty-${id}`);
-      if (qtyElement) qtyElement.textContent = next;
-
-      renderCart();
+    function getSelectedItems() {
+      return products
+        .filter(product => (quantities[product.id] || 0) > 0)
+        .map(product => {
+          const quantity = quantities[product.id] || 0;
+          const unitPrice = prices[product.id] || 0;
+          return {
+            ...product,
+            quantity,
+            unitPrice,
+            total: quantity * unitPrice
+          };
+        });
     }
 
-    function addCustomItem() {
-      const nameInput = document.getElementById("customName");
-      const noteInput = document.getElementById("customNote");
-      const emojiInput = document.getElementById("customEmoji");
-      const qtyInput = document.getElementById("customQty");
+    function getFavoriteItems() {
+      return products.filter(product => favorites[product.id]);
+    }
 
-      const name = nameInput.value.trim();
-      const note = noteInput.value.trim() || "Agregado manualmente";
-      const emoji = emojiInput.value.trim() || "🛒";
-      const quantity = Math.max(1, parseInt(qtyInput.value, 10) || 1);
+    function updateSummary() {
+      const selectedItems = getSelectedItems();
+      const favoriteItems = getFavoriteItems();
 
-      if (!name) {
-        alert("Escribe el nombre del ingrediente adicional.");
+      const estimatedTotal = selectedItems.reduce((sum, item) => sum + item.total, 0);
+      const quantityTotal = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
+      const budget = Number(budgetInput.value) || 0;
+      const remaining = budget - estimatedTotal;
+
+      totalEstimated.textContent = money(estimatedTotal);
+      distinctItems.textContent = selectedItems.length;
+      totalQuantity.textContent = quantityTotal;
+
+      if (budget > 0) {
+        remainingBudget.textContent = remaining >= 0 ? `${money(remaining)} restante` : `${money(Math.abs(remaining))} excedente`;
+        remainingBudget.style.color = remaining >= 0 ? "var(--green)" : "var(--red)";
+        const progress = Math.min((estimatedTotal / budget) * 100, 100);
+        budgetProgress.style.width = `${progress}%`;
+        budgetProgress.classList.toggle("over", estimatedTotal > budget);
+      } else {
+        remainingBudget.textContent = "$0";
+        remainingBudget.style.color = "var(--text)";
+        budgetProgress.style.width = "0%";
+        budgetProgress.classList.remove("over");
+      }
+
+      renderListItems(selectedItems);
+      renderFavorites(favoriteItems);
+    }
+
+    function renderListItems(selectedItems) {
+      listItems.innerHTML = "";
+
+      if (selectedItems.length === 0) {
+        listItems.innerHTML = `<div class="empty-message">Aún no has agregado productos.</div>`;
         return;
       }
 
-      customItems.push({
-        id: customIdCounter++,
-        category: "Otros",
+      selectedItems.forEach(item => {
+        const itemElement = document.createElement("div");
+        itemElement.className = "list-item";
+        itemElement.innerHTML = `
+          <div class="item-top">
+            <div>
+              <div class="item-name">${item.emoji} ${item.name}</div>
+              <div class="item-meta">${item.category} · Cantidad: ${item.quantity} · ${money(item.unitPrice)} c/u</div>
+            </div>
+            <div class="item-total">${money(item.total)}</div>
+          </div>
+        `;
+        listItems.appendChild(itemElement);
+      });
+    }
+
+    function renderFavorites(favoriteItems) {
+      favoritesList.innerHTML = "";
+
+      if (favoriteItems.length === 0) {
+        favoritesList.innerHTML = `<div class="empty-message">Marca productos con corazón.</div>`;
+        return;
+      }
+
+      favoriteItems.forEach(item => {
+        const favoriteElement = document.createElement("div");
+        favoriteElement.className = "favorite-item";
+        favoriteElement.innerHTML = `
+          <div>
+            <div class="item-name">${item.emoji} ${item.name}</div>
+            <div class="item-meta">${item.category}</div>
+          </div>
+          <button class="small-btn">+1</button>
+        `;
+
+        favoriteElement.querySelector(".small-btn").addEventListener("click", () => {
+          quantities[item.id] = (quantities[item.id] || 0) + 1;
+          renderProducts();
+          updateSummary();
+        });
+
+        favoritesList.appendChild(favoriteElement);
+      });
+    }
+
+    function addOtherProduct() {
+      const name = otherName.value.trim();
+      const note = otherNote.value.trim();
+      const emoji = otherEmoji.value.trim() || "🛒";
+      const quantity = Math.max(1, Number(otherQuantity.value) || 1);
+      const unitPrice = Number(otherPrice.value) || 0;
+
+      if (!name) {
+        showToast("Escribe el nombre del producto.");
+        return;
+      }
+
+      const id = `otros-${Date.now()}-${otherCounter++}`;
+      const newProduct = {
+        id,
+        emoji,
         name,
-        note,
-        quantity,
-        emoji
-      });
+        category: "Otros",
+        note
+      };
 
-      nameInput.value = "";
-      noteInput.value = "";
-      emojiInput.value = "🛒";
-      qtyInput.value = 1;
+      products.push(newProduct);
+      quantities[id] = quantity;
+      prices[id] = unitPrice;
 
-      renderCart();
-    }
+      otherName.value = "";
+      otherNote.value = "";
+      otherEmoji.value = "";
+      otherQuantity.value = "1";
+      otherPrice.value = "";
 
-    function removeCustomItem(id) {
-      const index = customItems.findIndex(item => item.id === id);
-
-      if (index !== -1) {
-        customItems.splice(index, 1);
-        renderCart();
-      }
-    }
-
-    function renderCart() {
-      const selected = products.filter(product => quantities[product.id] > 0);
-      cartList.innerHTML = "";
-
-      if (!selected.length && !customItems.length) {
-        cartList.innerHTML = "<p style='color:#777;font-size:14px;'>Aún no has agregado ingredientes.</p>";
-      }
-
-      let totalQty = 0;
-
-      selected.forEach(product => {
-        const qty = quantities[product.id];
-        totalQty += qty;
-
-        const item = document.createElement("div");
-        item.className = "cart-item";
-
-        item.innerHTML = `
-          <div>
-            <strong>${product.emoji} ${product.name}</strong>
-            <span>${product.category}</span>
-          </div>
-          <strong>${qty}</strong>
-        `;
-
-        cartList.appendChild(item);
-      });
-
-      customItems.forEach(product => {
-        totalQty += product.quantity;
-
-        const item = document.createElement("div");
-        item.className = "cart-item";
-
-        item.innerHTML = `
-          <div>
-            <strong>${product.emoji} ${product.name}</strong>
-            <span>${product.category} · ${product.note}</span>
-            <button class="remove-custom" onclick="removeCustomItem(${product.id})">Quitar</button>
-          </div>
-          <strong>${product.quantity}</strong>
-        `;
-
-        cartList.appendChild(item);
-      });
-
-      uniqueCount.textContent = selected.length + customItems.length;
-      totalItems.textContent = totalQty;
-    }
-
-    function clearList() {
-      Object.keys(quantities).forEach(key => delete quantities[key]);
-      customItems.length = 0;
+      renderFilters();
       renderProducts();
-      renderCart();
+      updateSummary();
+      showToast("Producto agregado a Otros.");
     }
 
     function copyList() {
-      const selected = products.filter(product => quantities[product.id] > 0);
+      const selectedItems = getSelectedItems();
+      const budget = Number(budgetInput.value) || 0;
+      const estimatedTotal = selectedItems.reduce((sum, item) => sum + item.total, 0);
+      const remaining = budget - estimatedTotal;
 
-      if (!selected.length && !customItems.length) {
-        alert("Primero agrega ingredientes a tu lista.");
+      if (selectedItems.length === 0) {
+        showToast("Tu lista está vacía.");
         return;
       }
 
-      const grouped = selected.reduce((groups, product) => {
-        if (!groups[product.category]) groups[product.category] = [];
-        groups[product.category].push(`${quantities[product.id]} x ${product.emoji} ${product.name}`);
+      const groupedItems = selectedItems.reduce((groups, item) => {
+        if (!groups[item.category]) groups[item.category] = [];
+        groups[item.category].push(item);
         return groups;
       }, {});
 
-      if (customItems.length) {
-        grouped["Otros"] = customItems.map(item => {
-          const noteText = item.note && item.note !== "Agregado manualmente" ? ` (${item.note})` : "";
-          return `${item.quantity} x ${item.emoji} ${item.name}${noteText}`;
+      let text = "Lista de súper:\n\n";
+
+      Object.keys(groupedItems).forEach(category => {
+        text += `${category}:\n`;
+        groupedItems[category].forEach(item => {
+          text += `- ${item.quantity} x ${item.emoji} ${item.name} | ${money(item.unitPrice)} c/u | Total: ${money(item.total)}\n`;
         });
-      }
-
-      let text = "Lista de súper:\n";
-
-      Object.keys(grouped).forEach(category => {
-        text += `\n${category}:\n`;
-
-        grouped[category].forEach(item => {
-          text += `- ${item}\n`;
-        });
+        text += "\n";
       });
 
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Lista copiada al portapapeles.");
-      }).catch(() => {
-        alert("No se pudo copiar automáticamente. Intenta desde otro navegador.");
-      });
+      text += `Total estimado: ${money(estimatedTotal)}\n`;
+      text += `Presupuesto: ${money(budget)}\n`;
+      text += remaining >= 0 ? `Restante: ${money(remaining)}` : `Excedente: ${money(Math.abs(remaining))}`;
+
+      navigator.clipboard.writeText(text)
+        .then(() => showToast("Lista copiada."))
+        .catch(() => {
+          const tempTextarea = document.createElement("textarea");
+          tempTextarea.value = text;
+          document.body.appendChild(tempTextarea);
+          tempTextarea.select();
+          document.execCommand("copy");
+          document.body.removeChild(tempTextarea);
+          showToast("Lista copiada.");
+        });
     }
 
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        buttons.forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active");
-        activeFilter = button.dataset.filter;
-        renderProducts();
+    function clearList() {
+      quantities = {};
+      prices = {};
+      products
+        .filter(product => product.category === "Otros")
+        .forEach(product => {
+          delete favorites[product.id];
+        });
+
+      for (let i = products.length - 1; i >= 0; i--) {
+        if (products[i].category === "Otros") {
+          products.splice(i, 1);
+        }
+      }
+
+      renderFilters();
+      renderProducts();
+      updateSummary();
+      showToast("Lista limpiada.");
+    }
+
+    searchInput.addEventListener("input", renderProducts);
+    budgetInput.addEventListener("input", updateSummary);
+    copyListBtn.addEventListener("click", copyList);
+    clearListBtn.addEventListener("click", clearList);
+    addOtherBtn.addEventListener("click", addOtherProduct);
+
+    [otherName, otherNote, otherEmoji, otherQuantity, otherPrice].forEach(input => {
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") addOtherProduct();
       });
     });
 
-    searchInput.addEventListener("input", renderProducts);
-
+    renderFilters();
     renderProducts();
-    renderCart();
+    updateSummary();
   </script>
 </body>
 </html>
