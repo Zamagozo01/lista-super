@@ -2,18 +2,587 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LISTA SUPER ZAMARRIPA CARDENAS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LISTA COZUMEL</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <style>
-:root{--o:#ff7a1a;--g:#2fbf71;--r:#ef476f;--b:#2d9cdb;--p:#8e5cf7;--t:#25313f;--m:#697586;--bd:#eadfce;--sh:0 12px 30px #25313f1c}*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:linear-gradient(135deg,#fffaf2,#fff0d8);color:var(--t)}header{text-align:center;padding:28px 16px 18px}h1{margin:0;color:var(--o);font-size:clamp(2rem,5vw,4rem);font-weight:950}.sub{color:var(--m);font-weight:650}.layout{width:min(1500px,calc(100% - 28px));margin:auto;display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:22px;align-items:start}.panel{background:#ffffffd9;border:1px solid var(--bd);border-radius:22px;box-shadow:var(--sh);padding:18px}.side{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto}.input{width:100%;border:1px solid var(--bd);border-radius:14px;padding:12px;font-size:1rem;outline:none;background:white}.input:focus{border-color:var(--o);box-shadow:0 0 0 4px #ff7a1a21}.tools,.filters{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0 16px}.btn{border:0;border-radius:14px;padding:11px 13px;font-weight:850;cursor:pointer}.filter{background:#fff;border:1px solid var(--bd)}.filter.active{background:var(--o);color:white}.blue{background:var(--b);color:white}.purple{background:var(--p);color:white}.green{background:var(--g);color:white}.red{background:var(--r);color:white}.orange{background:var(--o);color:white}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{position:relative;background:#fff;border:1px solid var(--bd);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:9px;min-height:230px;box-shadow:0 8px 20px #25313f12}.heart{position:absolute;right:12px;top:12px;border:0;border-radius:50%;width:38px;height:38px;background:#fff0f4;color:#c2a4ad;font-size:18px;cursor:pointer}.heart.active{color:var(--r);background:#ffe0e9}.emoji{font-size:2.6rem}.name{font-weight:950;padding-right:34px}.pill{width:max-content;max-width:100%;font-size:.76rem;font-weight:850;background:#fff3df;color:#df6500;padding:6px 9px;border-radius:999px}.note{color:var(--m);font-size:.84rem;min-height:18px}.qty{display:grid;grid-template-columns:42px 1fr 42px;gap:7px;align-items:center;margin-top:auto}.qty button{height:40px;border:0;border-radius:12px;background:var(--o);color:#fff;font-size:1.3rem;font-weight:950}.qty span{height:40px;border-radius:12px;background:#f7f1e8;display:grid;place-items:center;font-weight:950}h2{margin:0 0 12px}.box{background:#fff;border:1px solid var(--bd);border-radius:18px;padding:14px;margin-bottom:13px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:11px 0}.stat{background:#fff8ed;border-radius:14px;padding:10px}.stat small{color:var(--m);font-weight:800}.stat strong{display:block;margin-top:4px}.progress{height:13px;background:#efe5d8;border-radius:999px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--g),#ffd166,var(--o));transition:.25s}.bar.over{background:var(--r)}.list{display:flex;flex-direction:column;gap:9px}.item{border:1px solid var(--bd);border-radius:14px;padding:10px;background:#fffdf9}.row{display:flex;justify-content:space-between;gap:10px}.meta{font-size:.78rem;color:var(--m);font-weight:700;margin-top:3px}.total{font-weight:950;color:var(--g);white-space:nowrap}.fav{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px}.empty{text-align:center;color:var(--m);font-weight:750;background:#faf6ef;padding:12px;border-radius:14px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.other{width:min(1500px,calc(100% - 28px));margin:22px auto 40px}.other-grid{display:grid;grid-template-columns:1.2fr 1.2fr .7fr .7fr .9fr auto;gap:9px;align-items:end}.group label{display:block;font-size:.77rem;color:var(--m);font-weight:850;margin-bottom:5px}.status{margin-bottom:15px;padding:12px 14px;border-radius:14px;background:#edf8ff;color:#175f88;font-weight:750;display:none}.status.show{display:block}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#25313f;color:white;padding:12px 17px;border-radius:999px;opacity:0;transition:.2s;pointer-events:none}.toast.show{opacity:1}@media(max-width:1160px){.layout{grid-template-columns:1fr}.side{position:static;max-height:none}.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.layout,.other{width:calc(100% - 18px)}.grid{grid-template-columns:1fr}.other-grid{grid-template-columns:1fr}.stats,.actions{grid-template-columns:1fr}.filters{flex-wrap:nowrap;overflow:auto}.filter{white-space:nowrap}}
+:root{
+  --turquoise:#16b8c6;
+  --ocean:#0077a8;
+  --sky:#8edcf2;
+  --sand:#f7e7c6;
+  --sand-soft:#fff8eb;
+  --palm:#2fbf71;
+  --coral:#ff6f61;
+  --reef:#0f9f8f;
+  --t:#173247;
+  --m:#5d7180;
+  --bd:#bfeaf0;
+  --panel:#ffffffdf;
+  --sh:0 16px 36px #006f9820;
+  --page-pad:14px;
+}
+*{box-sizing:border-box}
+html,
+body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+}
+body{
+  margin:0;
+  padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  min-height:100vh;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--t);
+  background:
+    radial-gradient(circle at 88% 8%,#ffe08a 0 42px,transparent 43px),
+    radial-gradient(circle at 12% 20%,#ffffff8a 0 70px,transparent 71px),
+    linear-gradient(180deg,#bcefff 0%,#e8fbff 36%,#fff6df 73%,#f7e7c6 100%);
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:auto 0 0;
+  height:34vh;
+  pointer-events:none;
+  background:
+    radial-gradient(80% 42% at 50% 0%,#ffffff7a 0 18%,transparent 19%),
+    repeating-radial-gradient(ellipse at 50% 0%,#3bc8d333 0 13px,#ffffff00 14px 34px);
+  opacity:.85;
+}
+img,
+svg,
+canvas,
+input,
+button,
+select,
+textarea{
+  max-width:100%;
+}
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+button{
+  touch-action:manipulation;
+}
+header{
+  position:relative;
+  text-align:center;
+  padding:28px var(--page-pad) 20px;
+}
+header::before{
+  content:"🌴  🌊  ☀️";
+  display:block;
+  margin-bottom:8px;
+  font-size:1.35rem;
+  letter-spacing:.3rem;
+}
+h1{
+  margin:0;
+  color:var(--ocean);
+  font-size:clamp(2rem,4.8vw,4rem);
+  line-height:1.04;
+  font-weight:950;
+}
+.sub{
+  margin:10px auto 0;
+  max-width:680px;
+  color:#315f72;
+  font-weight:700;
+}
+.layout{
+  width:min(1500px,calc(100% - 28px));
+  margin:auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(320px,390px);
+  gap:22px;
+  align-items:start;
+}
+.layout,
+.panel,
+.card,
+.grid,
+.tools,
+.filters,
+.other-grid{
+  min-width:0;
+}
+.panel{
+  position:relative;
+  background:var(--panel);
+  border:1px solid var(--bd);
+  border-radius:22px;
+  box-shadow:var(--sh);
+  padding:18px;
+  backdrop-filter:blur(10px);
+}
+.side{
+  position:sticky;
+  top:14px;
+  max-height:calc(100vh - 28px);
+  overflow:auto;
+}
+.input{
+  width:100%;
+  min-width:0;
+  border:1px solid #a9dfe6;
+  border-radius:14px;
+  padding:12px 13px;
+  font-size:1rem;
+  outline:none;
+  background:#fff;
+  color:var(--t);
+}
+.input:focus{
+  border-color:var(--turquoise);
+  box-shadow:0 0 0 4px #16b8c629;
+}
+.tools{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:10px;
+  margin:12px 0 16px;
+}
+.filters{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin:12px 0 16px;
+}
+.btn{
+  min-width:0;
+  border:0;
+  border-radius:14px;
+  padding:12px 14px;
+  font-size:.96rem;
+  font-weight:850;
+  line-height:1.15;
+  cursor:pointer;
+  box-shadow:0 7px 16px #006f9818;
+}
+.filter{
+  background:#fff;
+  border:1px solid #afe7ef;
+  color:var(--ocean);
+  box-shadow:none;
+}
+.filter.active{
+  background:linear-gradient(135deg,var(--turquoise),var(--ocean));
+  color:white;
+  border-color:transparent;
+}
+.blue{background:linear-gradient(135deg,var(--turquoise),var(--ocean));color:white}
+.purple{background:linear-gradient(135deg,#50c6d7,#4a83d8);color:white}
+.green{background:linear-gradient(135deg,var(--palm),var(--reef));color:white}
+.red{background:linear-gradient(135deg,#ff7f7a,var(--coral));color:white}
+.orange{background:linear-gradient(135deg,#ffb45f,var(--coral));color:white}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
+}
+.grid>.empty{
+  grid-column:1/-1;
+}
+.card{
+  position:relative;
+  background:#ffffffee;
+  border:1px solid #c5edf2;
+  border-radius:20px;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  min-height:230px;
+  box-shadow:0 9px 22px #006f9814;
+}
+.heart{
+  position:absolute;
+  right:12px;
+  top:12px;
+  border:0;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  background:#fff0ef;
+  color:#d7a0a0;
+  font-size:18px;
+  cursor:pointer;
+}
+.heart.active{
+  color:#fff;
+  background:linear-gradient(135deg,#ff8e99,var(--coral));
+}
+.emoji{font-size:2.55rem;line-height:1}
+.name{
+  min-width:0;
+  font-weight:950;
+  padding-right:34px;
+  overflow-wrap:anywhere;
+}
+.pill{
+  width:max-content;
+  max-width:100%;
+  font-size:.76rem;
+  font-weight:850;
+  background:#e9fbfd;
+  color:#006f98;
+  padding:6px 9px;
+  border-radius:999px;
+}
+.note{
+  color:var(--m);
+  font-size:.86rem;
+  min-height:18px;
+}
+.qty{
+  display:grid;
+  grid-template-columns:46px minmax(0,1fr) 46px;
+  gap:8px;
+  align-items:center;
+  margin-top:auto;
+}
+.qty button{
+  min-height:44px;
+  border:0;
+  border-radius:13px;
+  background:linear-gradient(135deg,var(--turquoise),var(--ocean));
+  color:#fff;
+  font-size:1.45rem;
+  font-weight:950;
+}
+.qty span{
+  min-width:0;
+  min-height:44px;
+  border-radius:13px;
+  background:#edfafd;
+  display:grid;
+  place-items:center;
+  font-weight:950;
+}
+h2{
+  margin:0 0 12px;
+  color:#0b6688;
+  font-size:1.24rem;
+}
+.box{
+  background:#fffffff2;
+  border:1px solid #c5edf2;
+  border-radius:18px;
+  padding:14px;
+  margin-bottom:13px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:11px 0;
+}
+.stat{
+  min-width:0;
+  background:#f0fbfd;
+  border-radius:14px;
+  padding:10px;
+}
+.stat small{
+  color:var(--m);
+  font-weight:800;
+}
+.stat strong{
+  display:block;
+  margin-top:4px;
+  overflow-wrap:anywhere;
+}
+.progress{
+  height:13px;
+  background:#dff4f7;
+  border-radius:999px;
+  overflow:hidden;
+}
+.bar{
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,var(--ocean),var(--turquoise),var(--palm));
+  transition:.25s;
+}
+.bar.over{background:linear-gradient(90deg,#ff9b73,var(--coral))}
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+.item{
+  min-width:0;
+  border:1px solid #c5edf2;
+  border-radius:14px;
+  padding:10px;
+  background:#ffffff;
+}
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  min-width:0;
+}
+.row>div:first-child{
+  min-width:0;
+}
+.meta{
+  font-size:.78rem;
+  color:var(--m);
+  font-weight:700;
+  margin-top:3px;
+  overflow-wrap:anywhere;
+}
+.total{
+  font-weight:950;
+  color:var(--palm);
+  white-space:nowrap;
+}
+.fav{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:8px;
+}
+.empty{
+  text-align:center;
+  color:var(--m);
+  font-weight:750;
+  background:#f2fbfc;
+  padding:12px;
+  border-radius:14px;
+}
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:10px;
+}
+.other{
+  width:min(1500px,calc(100% - 28px));
+  margin:22px auto 40px;
+  scroll-margin-top:18px;
+}
+.other-grid{
+  display:grid;
+  grid-template-columns:1.2fr 1.2fr .7fr .7fr .9fr auto;
+  gap:9px;
+  align-items:end;
+}
+.group{
+  min-width:0;
+}
+.group label{
+  display:block;
+  font-size:.77rem;
+  color:var(--m);
+  font-weight:850;
+  margin-bottom:5px;
+}
+.status{
+  margin-bottom:15px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:#e5f9fc;
+  color:#0b6688;
+  font-weight:750;
+  display:none;
+}
+.status.show{display:block}
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(20px + env(safe-area-inset-bottom));
+  transform:translateX(-50%);
+  width:max-content;
+  max-width:calc(100% - 28px - env(safe-area-inset-left) - env(safe-area-inset-right));
+  background:#173247;
+  color:white;
+  padding:12px 17px;
+  border-radius:999px;
+  opacity:0;
+  transition:.2s;
+  pointer-events:none;
+  text-align:center;
+  z-index:10;
+}
+.toast.show{opacity:1}
+
+@media(min-width:1161px){
+  .layout{
+    grid-template-columns:minmax(0,1fr) minmax(320px,390px);
+  }
+  .grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+
+@media(min-width:761px) and (max-width:1160px){
+  .layout{
+    grid-template-columns:1fr;
+  }
+  .side{
+    position:static;
+    max-height:none;
+  }
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .other-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .other-grid .orange{
+    grid-column:1/-1;
+  }
+}
+
+@media(max-width:760px){
+  :root{--page-pad:10px}
+  body{
+    background:
+      radial-gradient(circle at 88% 7%,#ffe08a 0 34px,transparent 35px),
+      linear-gradient(180deg,#bcefff 0%,#edfcff 42%,#fff7e6 78%,#f7e7c6 100%);
+  }
+  header{
+    padding:20px var(--page-pad) 14px;
+  }
+  header::before{
+    margin-bottom:6px;
+    font-size:1.1rem;
+    letter-spacing:.18rem;
+  }
+  h1{
+    font-size:clamp(1.85rem,9vw,2.7rem);
+    line-height:1.02;
+  }
+  .sub{
+    font-size:.98rem;
+    line-height:1.35;
+  }
+  .layout,
+  .other{
+    width:100%;
+    padding-left:var(--page-pad);
+    padding-right:var(--page-pad);
+  }
+  .layout{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  .panel{
+    border-radius:18px;
+    padding:14px;
+  }
+  .side{
+    position:static;
+    max-height:none;
+    overflow:visible;
+  }
+  .input{
+    font-size:16px;
+    padding:12px;
+  }
+  .tools{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+  .btn{
+    min-height:44px;
+    padding:11px 10px;
+    font-size:.94rem;
+  }
+  .filters{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding:2px 2px 8px;
+    margin-left:-2px;
+    margin-right:-2px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .filter{
+    flex:0 0 auto;
+    white-space:nowrap;
+  }
+  .grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .card{
+    min-height:0;
+    padding:14px;
+    border-radius:18px;
+  }
+  .emoji{
+    font-size:2.35rem;
+  }
+  .name{
+    font-size:1.03rem;
+  }
+  .qty{
+    grid-template-columns:48px minmax(0,1fr) 48px;
+  }
+  .qty button,
+  .qty span{
+    min-height:46px;
+  }
+  .stats,
+  .actions,
+  .other-grid{
+    grid-template-columns:1fr;
+  }
+  .row{
+    align-items:flex-start;
+  }
+  .other{
+    margin:14px auto calc(28px + env(safe-area-inset-bottom));
+  }
+}
+
+@media(max-width:430px){
+  :root{--page-pad:9px}
+  header{
+    padding-top:16px;
+  }
+  h1{
+    font-size:clamp(1.7rem,10.5vw,2.25rem);
+    white-space:normal;
+  }
+  .sub{
+    font-size:.94rem;
+  }
+  .tools{
+    grid-template-columns:1fr;
+  }
+  .panel{
+    padding:12px;
+  }
+  .card{
+    padding:13px;
+  }
+  .stats{
+    gap:7px;
+  }
+  .row{
+    flex-direction:column;
+    gap:6px;
+  }
+  .total{
+    white-space:normal;
+  }
+}
 </style>
 </head>
 <body>
-<header><h1>LISTA SUPER ZAMARRIPA CARDENAS</h1><p class="sub">Catálogo interactivo con favoritos, presupuesto, Excel y Word.</p></header>
+<header><h1>LISTA COZUMEL</h1><p class="sub">Organiza todo lo necesario para disfrutar Cozumel.</p></header>
 <section class="layout">
 <main class="panel">
 <input id="search" class="input" placeholder="Buscar producto...">
@@ -25,7 +594,7 @@
 <section class="box"><h2>❤️ Favoritos</h2><div id="favorites" class="list"></div></section>
 <section class="box"><h2>🛒 Mi lista</h2><div id="myList" class="list"></div><div class="actions"><button id="copy" class="btn blue">Copiar lista</button><button id="clear" class="btn red">Limpiar lista</button></div></section>
 </aside></section>
-<section class="panel other"><h2>🛍️ Otros</h2><div class="other-grid"><div class="group"><label>Nombre</label><input id="otherName" class="input"></div><div class="group"><label>Nota opcional</label><input id="otherNote" class="input"></div><div class="group"><label>Emoji</label><input id="otherEmoji" class="input" placeholder="🛒"></div><div class="group"><label>Cantidad</label><input id="otherQty" class="input" type="number" min="1" value="1"></div><div class="group"><label>Precio unitario</label><input id="otherPrice" class="input" type="number" min="0" step=".01"></div><button id="addOther" class="btn orange">Agregar a otros</button></div></section>
+<section id="othersSection" class="panel other"><h2>🛍️ Otros</h2><div class="other-grid"><div class="group"><label>Nombre</label><input id="otherName" class="input"></div><div class="group"><label>Nota opcional</label><input id="otherNote" class="input"></div><div class="group"><label>Emoji</label><input id="otherEmoji" class="input" placeholder="🛒"></div><div class="group"><label>Cantidad</label><input id="otherQty" class="input" type="number" min="1" value="1"></div><div class="group"><label>Precio unitario</label><input id="otherPrice" class="input" type="number" min="0" step=".01"></div><button id="addOther" class="btn orange">Agregar a otros</button></div></section>
 <div id="toast" class="toast"></div>
 <script>
 const raw={
@@ -39,15 +608,16 @@ const raw={
 "Básicos de despensa":[["🧻","Servilletas"],["🧽","Esponjas"],["🧴","Jabón para trastes"],["🧼","Jabón de manos"],["🧻","Papel de baño"],["🧺","Bolsas para basura"],["🧴","Desinfectante"],["🧂","Papel aluminio"],["📦","Bolsas ziploc"],["🍱","Contenedores para comida"]]};
 let products=[],quantities={},prices={},favorites={},notes={},selectedCategory="Todas";const $=id=>document.getElementById(id);const slug=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-");const norm=s=>String(s??"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim().toLowerCase().replace(/\s+/g," ");Object.entries(raw).forEach(([category,items])=>items.forEach((x,i)=>products.push({id:slug(category)+"-"+i,emoji:x[0],name:x[1],category,note:x[2]||""})));
 const money=n=>"$"+(Number(n)||0).toLocaleString("es-MX",{minimumFractionDigits:(Number(n)||0)%1?2:0,maximumFractionDigits:2});function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1800)}function save(){localStorage.setItem("listaSuperZamarripa",JSON.stringify({products,quantities,prices,favorites,notes,budget:$("budget").value}))}function load(){try{const s=JSON.parse(localStorage.getItem("listaSuperZamarripa"));if(!s)return;if(Array.isArray(s.products))products=s.products;quantities=s.quantities||{};prices=s.prices||{};favorites=s.favorites||{};notes=s.notes||{};setTimeout(()=>$("budget").value=s.budget||"",0)}catch{}}load();
-function renderFilters(){const cats=["Todas",...new Set(products.map(p=>p.category))];$("filters").innerHTML="";cats.forEach(c=>{const b=document.createElement("button");b.className="btn filter"+(c===selectedCategory?" active":"");b.textContent=c;b.onclick=()=>{selectedCategory=c;renderFilters();renderProducts()};$("filters").appendChild(b)})}
+function goToOthers(){const section=$("othersSection");if(section)section.scrollIntoView({behavior:"smooth",block:"start"});setTimeout(()=>$("otherName").focus(),350)}
+function renderFilters(){const cats=["Todas",...new Set(products.map(p=>p.category).filter(c=>c!=="Otros"))];$("filters").innerHTML="";cats.forEach(c=>{const b=document.createElement("button");b.className="btn filter"+(c===selectedCategory?" active":"");b.textContent=c;b.onclick=()=>{selectedCategory=c;renderFilters();renderProducts()};$("filters").appendChild(b)});const otherBtn=document.createElement("button");otherBtn.className="btn filter";otherBtn.textContent="Otros";otherBtn.onclick=goToOthers;$("filters").appendChild(otherBtn)}
 function renderProducts(){const q=norm($("search").value),list=products.filter(p=>(selectedCategory==="Todas"||p.category===selectedCategory)&&(!q||norm(p.name+" "+p.category+" "+(notes[p.id]||p.note)).includes(q)));$("grid").innerHTML=list.length?"":"<div class='empty'>No se encontraron productos.</div>";list.forEach(p=>{const d=document.createElement("article");d.className="card";d.innerHTML=`<button class="heart ${favorites[p.id]?"active":""}">♥</button><div class="emoji">${p.emoji}</div><div class="name">${p.name}</div><div class="pill">${p.category}</div><div class="note">${notes[p.id]||p.note||"Agrega cantidad y precio si aplica."}</div><input class="input price" type="number" min="0" step=".01" placeholder="Precio unitario manual" value="${prices[p.id]??""}"><div class="qty"><button class="minus">−</button><span>${quantities[p.id]||0}</span><button class="plus">+</button></div>`;d.querySelector(".heart").onclick=()=>{favorites[p.id]=!favorites[p.id];renderProducts();update()};d.querySelector(".price").oninput=e=>{prices[p.id]=Number(e.target.value)||0;update()};d.querySelector(".minus").onclick=()=>{quantities[p.id]=Math.max(0,(quantities[p.id]||0)-1);renderProducts();update()};d.querySelector(".plus").onclick=()=>{quantities[p.id]=(quantities[p.id]||0)+1;renderProducts();update()};$("grid").appendChild(d)})}
 function selected(){return products.filter(p=>(quantities[p.id]||0)>0).map(p=>({...p,note:notes[p.id]||p.note,quantity:quantities[p.id],unitPrice:prices[p.id]||0,total:(quantities[p.id]||0)*(prices[p.id]||0)}))}
 function update(){const list=selected(),total=list.reduce((a,x)=>a+x.total,0),qty=list.reduce((a,x)=>a+x.quantity,0),budget=Number($("budget").value)||0,rem=budget-total;$("total").textContent=money(total);$("distinct").textContent=list.length;$("quantityTotal").textContent=qty;$("remaining").textContent=budget?(rem>=0?money(rem)+" restante":money(Math.abs(rem))+" excedente"):"$0";$("remaining").style.color=rem<0?"var(--r)":"var(--g)";$("bar").style.width=budget?Math.min(total/budget*100,100)+"%":"0";$("bar").classList.toggle("over",budget>0&&total>budget);$("myList").innerHTML=list.length?"":"<div class='empty'>Aún no has agregado productos.</div>";list.forEach(x=>{const d=document.createElement("div");d.className="item";d.innerHTML=`<div class="row"><div><strong>${x.emoji} ${x.name}</strong><div class="meta">${x.category} · Cantidad: ${x.quantity} · ${money(x.unitPrice)} c/u</div></div><div class="total">${money(x.total)}</div></div>`;$("myList").appendChild(d)});const favs=products.filter(p=>favorites[p.id]);$("favorites").innerHTML=favs.length?"":"<div class='empty'>Marca productos con corazón.</div>";favs.forEach(p=>{const d=document.createElement("div");d.className="item fav";d.innerHTML=`<div><strong>${p.emoji} ${p.name}</strong><div class="meta">${p.category}</div></div><button class="btn green">+1</button>`;d.querySelector("button").onclick=()=>{quantities[p.id]=(quantities[p.id]||0)+1;renderProducts();update()};$("favorites").appendChild(d)});save()}
 function addOther(){const name=$("otherName").value.trim();if(!name)return toast("Escribe el nombre del producto.");const p={id:"otros-"+Date.now(),emoji:$("otherEmoji").value.trim()||"🛒",name,category:"Otros",note:$("otherNote").value.trim()};products.push(p);quantities[p.id]=Math.max(1,Number($("otherQty").value)||1);prices[p.id]=Number($("otherPrice").value)||0;$("otherName").value=$("otherNote").value=$("otherEmoji").value=$("otherPrice").value="";$("otherQty").value=1;renderFilters();renderProducts();update();toast("Producto agregado.")}
-function copyList(){const list=selected();if(!list.length)return toast("Tu lista está vacía.");const grouped={};list.forEach(x=>(grouped[x.category]??=[]).push(x));let t="Lista de súper:\n\n";Object.entries(grouped).forEach(([c,items])=>{t+=c+":\n";items.forEach(x=>t+=`- ${x.quantity} x ${x.emoji} ${x.name} | ${money(x.unitPrice)} c/u | Total: ${money(x.total)}\n`);t+="\n"});const total=list.reduce((a,x)=>a+x.total,0),budget=Number($("budget").value)||0,rem=budget-total;t+=`Total estimado: ${money(total)}\nPresupuesto: ${money(budget)}\n${rem>=0?"Restante":"Excedente"}: ${money(Math.abs(rem))}`;navigator.clipboard.writeText(t).then(()=>toast("Lista copiada."))}
-function downloadTemplate(){const rows=products.map(p=>({Producto:p.name,Categoría:p.category,Emoji:p.emoji,Nota:notes[p.id]||p.note||"",Cantidad:quantities[p.id]||0,"Precio unitario":prices[p.id]||0,Favorito:favorites[p.id]?"Sí":"No"}));const ws=XLSX.utils.json_to_sheet(rows);ws["!cols"]=[{wch:34},{wch:28},{wch:9},{wch:28},{wch:10},{wch:16},{wch:11}];const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Lista de súper");XLSX.writeFile(wb,"Plantilla_Lista_Super_Zamarripa.xlsx")}
+function copyList(){const list=selected();if(!list.length)return toast("Tu lista está vacía.");const grouped={};list.forEach(x=>(grouped[x.category]??=[]).push(x));let t="LISTA COZUMEL:\n\n";Object.entries(grouped).forEach(([c,items])=>{t+=c+":\n";items.forEach(x=>t+=`- ${x.quantity} x ${x.emoji} ${x.name} | ${money(x.unitPrice)} c/u | Total: ${money(x.total)}\n`);t+="\n"});const total=list.reduce((a,x)=>a+x.total,0),budget=Number($("budget").value)||0,rem=budget-total;t+=`Total estimado: ${money(total)}\nPresupuesto: ${money(budget)}\n${rem>=0?"Restante":"Excedente"}: ${money(Math.abs(rem))}`;navigator.clipboard.writeText(t).then(()=>toast("Lista copiada."))}
+function downloadTemplate(){const rows=products.map(p=>({Producto:p.name,Categoría:p.category,Emoji:p.emoji,Nota:notes[p.id]||p.note||"",Cantidad:quantities[p.id]||0,"Precio unitario":prices[p.id]||0,Favorito:favorites[p.id]?"Sí":"No"}));const ws=XLSX.utils.json_to_sheet(rows);ws["!cols"]=[{wch:34},{wch:28},{wch:9},{wch:28},{wch:10},{wch:16},{wch:11}];const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"LISTA COZUMEL");XLSX.writeFile(wb,"Plantilla_Lista_Cozumel.xlsx")}
 function val(row,aliases){const map={};Object.keys(row).forEach(k=>map[norm(k)]=row[k]);for(const a of aliases)if(map[norm(a)]!==undefined)return map[norm(a)];return ""}const yes=v=>["si","sí","yes","true","1","x","favorito"].includes(norm(v));async function importSheet(file){try{const data=await file.arrayBuffer(),wb=XLSX.read(data),ws=wb.Sheets[wb.SheetNames[0]],rows=XLSX.utils.sheet_to_json(ws,{defval:""});let recognized=0,created=0,errors=0;rows.forEach((row,index)=>{const name=String(val(row,["Producto","Nombre","Nombre del producto"])).trim();if(!name){errors++;return}const category=String(val(row,["Categoría","Categoria"])).trim()||"Otros",emoji=String(val(row,["Emoji","Icono","Ícono"])).trim()||"🛒",note=String(val(row,["Nota","Notas","Observaciones"])).trim(),qty=Math.max(0,Number(val(row,["Cantidad","Qty"]))||0),price=Math.max(0,Number(val(row,["Precio unitario","Precio","Costo"]))||0),fav=yes(val(row,["Favorito","Favoritos","Favorite"]));let p=products.find(x=>norm(x.name)===norm(name));if(p)recognized++;else{p={id:"otros-importado-"+Date.now()+"-"+index,emoji,name,category,note};products.push(p);created++}if(category&&p.category==="Otros")p.category=category;if(emoji)p.emoji=emoji;if(note)notes[p.id]=note;quantities[p.id]=(quantities[p.id]||0)+qty;prices[p.id]=price;favorites[p.id]=fav});renderFilters();renderProducts();update();$("importStatus").textContent=`Importación completada: ${recognized} reconocidos, ${created} nuevos y ${errors} filas omitidas.`;$("importStatus").classList.add("show");toast("Archivo importado correctamente.")}catch(e){console.error(e);$("importStatus").textContent="No fue posible leer el archivo. Revisa los encabezados.";$("importStatus").classList.add("show");toast("Error al importar.")}}
-async function exportDocx(){const list=selected();if(!list.length)return toast("Tu lista está vacía.");if(!window.docx)return toast("No se cargó la biblioteca de Word.");const {Document,Packer,Paragraph,TextRun,Table,TableRow,TableCell,WidthType,AlignmentType,HeadingLevel,ShadingType}=window.docx,total=list.reduce((a,x)=>a+x.total,0),qty=list.reduce((a,x)=>a+x.quantity,0),budget=Number($("budget").value)||0,rem=budget-total;const head=["Categoría","Producto","Nota","Cantidad","Precio unitario","Total"].map(t=>new TableCell({shading:{fill:"F4B183",type:ShadingType.CLEAR},children:[new Paragraph({children:[new TextRun({text:t,bold:true})]})]})),rows=[new TableRow({children:head})];list.sort((a,b)=>a.category.localeCompare(b.category)||a.name.localeCompare(b.name)).forEach(x=>rows.push(new TableRow({children:[new TableCell({children:[new Paragraph(x.category)]}),new TableCell({children:[new Paragraph(`${x.emoji} ${x.name}`)]}),new TableCell({children:[new Paragraph(x.note||"")]}),new TableCell({children:[new Paragraph(String(x.quantity))]}),new TableCell({children:[new Paragraph(money(x.unitPrice))]}),new TableCell({children:[new Paragraph(money(x.total))]})]})));const doc=new Document({sections:[{children:[new Paragraph({text:"LISTA SUPER ZAMARRIPA CARDENAS",heading:HeadingLevel.TITLE,alignment:AlignmentType.CENTER}),new Paragraph({text:`Fecha: ${new Date().toLocaleDateString("es-MX")}`,alignment:AlignmentType.CENTER}),new Paragraph({text:""}),new Table({width:{size:100,type:WidthType.PERCENTAGE},rows}),new Paragraph({text:""}),new Paragraph({children:[new TextRun({text:`Ingredientes distintos: ${list.length}`,bold:true})]}),new Paragraph({children:[new TextRun({text:`Cantidad total: ${qty}`,bold:true})]}),new Paragraph({children:[new TextRun({text:`Total estimado: ${money(total)}`,bold:true})]}),new Paragraph({children:[new TextRun({text:`Presupuesto: ${money(budget)}`,bold:true})]}),new Paragraph({children:[new TextRun({text:`${rem>=0?"Restante":"Excedente"}: ${money(Math.abs(rem))}`,bold:true})]})]}]});const blob=await Packer.toBlob(doc);saveAs(blob,"Lista_Super_Zamarripa_Cardenas.docx");toast("Documento Word descargado.")}
+async function exportDocx(){const list=selected();if(!list.length)return toast("Tu lista está vacía.");if(!window.docx)return toast("No se cargó la biblioteca de Word.");const {Document,Packer,Paragraph,TextRun,Table,TableRow,TableCell,WidthType,AlignmentType,HeadingLevel,ShadingType}=window.docx,total=list.reduce((a,x)=>a+x.total,0),qty=list.reduce((a,x)=>a+x.quantity,0),budget=Number($("budget").value)||0,rem=budget-total;const head=["Categoría","Producto","Nota","Cantidad","Precio unitario","Total"].map(t=>new TableCell({shading:{fill:"16B8C6",type:ShadingType.CLEAR},children:[new Paragraph({children:[new TextRun({text:t,bold:true,color:"FFFFFF"})]})]})),rows=[new TableRow({children:head})];list.sort((a,b)=>a.category.localeCompare(b.category)||a.name.localeCompare(b.name)).forEach(x=>rows.push(new TableRow({children:[new TableCell({children:[new Paragraph(x.category)]}),new TableCell({children:[new Paragraph(`${x.emoji} ${x.name}`)]}),new TableCell({children:[new Paragraph(x.note||"")]}),new TableCell({children:[new Paragraph(String(x.quantity))]}),new TableCell({children:[new Paragraph(money(x.unitPrice))]}),new TableCell({children:[new Paragraph(money(x.total))]})]})));const doc=new Document({sections:[{children:[new Paragraph({text:"LISTA COZUMEL",heading:HeadingLevel.TITLE,alignment:AlignmentType.CENTER}),new Paragraph({text:`Fecha: ${new Date().toLocaleDateString("es-MX")}`,alignment:AlignmentType.CENTER}),new Paragraph({text:""}),new Table({width:{size:100,type:WidthType.PERCENTAGE},rows}),new Paragraph({text:""}),new Paragraph({children:[new TextRun({text:`Ingredientes distintos: ${list.length}`,bold:true})]}),new Paragraph({children:[new TextRun({text:`Cantidad total: ${qty}`,bold:true})]}),new Paragraph({children:[new TextRun({text:`Total estimado: ${money(total)}`,bold:true})]}),new Paragraph({children:[new TextRun({text:`Presupuesto: ${money(budget)}`,bold:true})]}),new Paragraph({children:[new TextRun({text:`${rem>=0?"Restante":"Excedente"}: ${money(Math.abs(rem))}`,bold:true})]})]}]});const blob=await Packer.toBlob(doc);saveAs(blob,"Lista_Cozumel.docx");toast("Documento Word descargado.")}
 $("search").oninput=renderProducts;$("budget").oninput=update;$("addOther").onclick=addOther;$("copy").onclick=copyList;$("clear").onclick=()=>{quantities={};prices={};products=products.filter(p=>p.category!=="Otros");renderFilters();renderProducts();update();toast("Lista limpiada.")};$("templateExcel").onclick=downloadTemplate;$("importExcel").onclick=()=>$("excelFile").click();$("excelFile").onchange=e=>{if(e.target.files[0])importSheet(e.target.files[0]);e.target.value=""};$("exportWord").onclick=exportDocx;renderFilters();renderProducts();setTimeout(update,0);
 </script>
 </body></html>
